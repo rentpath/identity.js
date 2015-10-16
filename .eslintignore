@@ -1,0 +1,8 @@
+**/node_modules/*
+*.config.js
+*.config.production.js
+build/*
+dist/*
+node_modules/*
+tests/*
+bundle.js
