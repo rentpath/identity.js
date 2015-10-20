@@ -14,6 +14,7 @@ $ git clone ...
 $ npm install
 $ npm start
 
+#
 # Open http://localhost:5000
 ```
 
@@ -23,7 +24,7 @@ $ npm start
 Scan your JS with ESLint.
 
 ```
-npm run lint
+$ npm run lint
 ```
 
 
@@ -32,11 +33,12 @@ npm run lint
 Start Karma test runner.
 
 This will run the tests only one, ideal for CI (travis and such).
+
 ```
-npm test
+$ npm test
 ```
 
 This will auto watch all files for changes and rerun the tests. Ideal for development.
 ```
-npm run test_watch
+$ npm run test_watch
 ```

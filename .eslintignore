@@ -1,6 +1,7 @@
-dist/*
-node_modules/*
 **/node_modules/*
-tests/*
 *.config.js
 *.config.production.js
+build/*
+dist/*
+node_modules/*
+tests/*
