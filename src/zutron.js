@@ -17,26 +17,24 @@ const UniversalZid = {
       request.setRequestHeader('Accept', 'application/json');
       request.setRequestHeader('Content-Type', 'application/json');
 
-      request.onload =
-        function () {
-          if (request.status >= 200 && request.status < 400) {
-            let data = JSON.parse(request.responseText);
-            successFn.call(data);
-          } else {
-            if (errorFn) {
-              errorFn(this.status, this.responseText);
-            }
-          }
-        };
-
-      request.onerror =
-        function () {
-          if (this.readyState === 4 && this.status === 0) {
-            errorFn('NO_NETWORK');
-          } else {
+      request.onload = function () {
+        if (request.status >= 200 && request.status < 400) {
+          let data = JSON.parse(request.responseText);
+          successFn.call(data);
+        } else {
+          if (errorFn) {
             errorFn(this.status, this.responseText);
           }
-        };
+        }
+      };
+
+      request.onerror = function () {
+        if (this.readyState === 4 && this.status === 0) {
+          errorFn('NO_NETWORK');
+        } else {
+          errorFn(this.status, this.responseText);
+        }
+      };
 
       if (retries > 0) {
         request.ontimeout = function () {
