@@ -13,7 +13,7 @@ const UniversalZid = {
       let url     = `${host}:${port}/${path}`;
       let request = new XMLHttpRequest();
 
-      request.open('POST', url, true);
+      request.open('GET', url, true);
       request.setRequestHeader('Accept', 'application/json');
       request.setRequestHeader('Content-Type', 'application/json');
 
