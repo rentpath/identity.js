@@ -3,11 +3,11 @@ const UniversalZid = {
     function (
       successFn,
       errorFn,
-      retries = 3,
-      timeout = 500,
       host    = 'http://zutron.primedia.com',
       port    = 80,
-      target  = '/universal_zids/new')
+      target  = '/universal_zids/new',
+      retries = 3,
+      timeout = 500)
     {
       let path    = target.replace(/^\//, '');
       let url     = `${host}:${port}/${path}`;
@@ -38,7 +38,7 @@ const UniversalZid = {
 
       if (retries > 0) {
         request.ontimeout = function () {
-          fetch(successFn, errorFn, retries - 1, timeout, host, port, target);
+          fetch(successFn, errorFn, host, port, target, retries - 1, timeout);
         };
       } else {
         request.ontimeout = function () {
