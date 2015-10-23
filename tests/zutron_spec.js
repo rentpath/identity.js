@@ -41,11 +41,11 @@ describe('UniversalZid', () => {
         })
       var successFn = jasmine.createSpy('onLoad');
 
-      testUniversalZid.fetch(successFn, 'http://localhost', 3000);
+      testUniversalZid.fetch(successFn, 'zutron.primedia.com', 80);
       var request = jasmine.Ajax.requests.mostRecent();
 
       expect(request.method).toBe('GET');
-      expect(request.url).toBe('http://localhost:3000/universal_zids/new');
+      expect(request.url).toContain('/universal_zids/new');
       expect(successFn).toHaveBeenCalled();
     });
 
@@ -53,7 +53,7 @@ describe('UniversalZid', () => {
       var successFn  = jasmine.createSpy('onLoad');
       var errorFn = jasmine.createSpy('onTimeout');
 
-      testUniversalZid.fetch(successFn, errorFn, 'http://localhost', 3000);
+      testUniversalZid.fetch(successFn, errorFn, 'zutron.primedia.com', 80);
       var request = jasmine.Ajax.requests.mostRecent();
       request.responseTimeout();
 
