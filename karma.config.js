@@ -2,12 +2,12 @@ var webpack = require('karma-webpack');
 
 module.exports = function (config) {
   config.set({
-    frameworks: [ 'jasmine' ],
+    frameworks: [ 'jasmine-ajax','jasmine' ],
     files: [
       './node_modules/phantomjs-polyfill/bind-polyfill.js',
       'tests/**/*_spec.js'
     ],
-    plugins: [webpack, 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-coverage', 'karma-spec-reporter'],
+    plugins: [webpack, 'karma-jasmine-ajax', 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-coverage', 'karma-spec-reporter'],
     browsers: [ 'PhantomJS' ],
     preprocessors: {
       'tests/**/*_spec.js': ['webpack'],

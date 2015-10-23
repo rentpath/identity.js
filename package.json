@@ -1,18 +1,18 @@
 {
-  "name":         "zutron-universal-zid-tracker",
-  "version":      "1.0.0",
-  "description":  "Allocate and track a universal ZID using Zutron as a backend.",
-  "main":         "zutron.js",
+  "name": "zutron-universal-zid-tracker",
+  "version": "1.0.0",
+  "description": "Allocate and track a universal ZID using Zutron as a backend.",
+  "main": "zutron.js",
   "scripts": {
-    "start":      "node server.js",
-    "build":      "./node_modules/.bin/webpack --config webpack.config.production.js",
-    "test":       "./node_modules/karma/bin/karma start --single-run --no-auto-watch karma.config.js",
+    "start": "node server.js",
+    "build": "./node_modules/.bin/webpack --config webpack.config.production.js",
+    "test": "./node_modules/karma/bin/karma start --single-run --no-auto-watch karma.config.js",
     "test_watch": "./node_modules/karma/bin/karma start --auto-watch --no-single-run karma.config.js",
-    "lint":       "./node_modules/.bin/eslint ."
+    "lint": "./node_modules/.bin/eslint ."
   },
   "repository": {
-    "type":       "git",
-    "url":        "https://github.com/rentpath/zutron-universal-zid-tracker.git"
+    "type": "git",
+    "url": "https://github.com/rentpath/zutron-universal-zid-tracker.git"
   },
   "keywords": [
     "es6",
@@ -40,6 +40,7 @@
     "karma": "^0.13.3",
     "karma-coverage": "^0.4.2",
     "karma-jasmine": "^0.3.6",
+    "karma-jasmine-ajax": "^0.1.13",
     "karma-phantomjs-launcher": "^0.2.0",
     "karma-spec-reporter": "0.0.20",
     "karma-webpack": "^1.7.0",
