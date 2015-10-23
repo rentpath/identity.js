@@ -39,11 +39,10 @@ describe('UniversalZid', () => {
           contentType: 'application/json',
           responseText: '{}'
         })
-      var successFn = jasmine.createSpy('onLoad');
 
+      var successFn = jasmine.createSpy('onLoad');
       testUniversalZid.fetch(successFn, () => {}, 'zutron.primedia.com', 80);
       var request = jasmine.Ajax.requests.mostRecent();
-
       expect(request.method).toBe('GET');
       expect(request.url).toContain('/universal_zids/new');
       expect(successFn).toHaveBeenCalled();
@@ -52,11 +51,9 @@ describe('UniversalZid', () => {
     it('should call error callback on timeout', function () {
       var successFn = jasmine.createSpy('onLoad');
       var errorFn   = jasmine.createSpy('onTimeout');
-
-      testUniversalZid.fetch(successFn, errorFn, 'zutron.primedia.com', 80);
-      var request = jasmine.Ajax.requests.mostRecent();
+      testUniversalZid.fetch(successFn, errorFn, 'zutron.primedia.com', 80, '/universal_zids/new', 0);
+      var request   = jasmine.Ajax.requests.mostRecent();
       request.responseTimeout();
-
       expect(errorFn).toHaveBeenCalled();
     });
   })

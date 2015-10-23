@@ -38,7 +38,7 @@ const UniversalZid = {
 
       if (retries > 0) {
         request.ontimeout = function () {
-          fetch(successFn, errorFn, host, port, target, retries - 1, timeout);
+          UniversalZid.fetch(successFn, errorFn, host, port, target, retries - 1, timeout);
         };
       } else {
         request.ontimeout = function () {
