@@ -38,12 +38,13 @@ describe('UniversalZid', () => {
           statusText: 'Created',
           contentType: 'application/json',
           responseText: '{}'
-        })
+        });
 
       var successFn = jasmine.createSpy('onLoad');
-      testUniversalZid.fetch(successFn, () => {}, 'zutron.primedia.com', 80);
+      testUniversalZid.fetch(successFn, () => {}, 'hailzutron.primedia.com', 8080);
       var request = jasmine.Ajax.requests.mostRecent();
       expect(request.method).toBe('GET');
+      expect(request.url).toContain('hailzutron.primedia.com:8080');
       expect(request.url).toContain('/universal_zids/new');
       expect(successFn).toHaveBeenCalled();
     });
