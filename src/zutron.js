@@ -1,4 +1,4 @@
-var monster = require('js-cookie');
+var Cookie = require('js-cookie');
 
 const UniversalZid = {
   cookify:
