@@ -12,7 +12,10 @@ describe('UniversalZid', () => {
   });
 
   describe('#cookify', function () {
-    UniversalZid.cookify();
+    it('sets the uzid cookie', function () {
+      var cookieValue = 'something';
+      UniversalZid.cookify(cookieValue);
+    });
   });
 
   describe('#fetch', function () {

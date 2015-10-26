@@ -1,10 +1,10 @@
-var monster = require('monster')
+var monster = require('js-cookie');
 
 const UniversalZid = {
   cookify:
-    function (cookieName = 'uzid')
+    function (value, cookieName = 'uzid', expiry = 365)
     {
-      monster.get(cookieName);
+      Cookie.set(cookieName, value, { expires: expiry });
     },
 
   fetch:
