@@ -1,6 +1,11 @@
+var monster = require('monster')
+
 const UniversalZid = {
   cookify:
-    monster.get('cheese');
+    function (cookieName = 'uzid')
+    {
+      monster.get(cookieName);
+    }
 
   fetch:
     function (
