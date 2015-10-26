@@ -5,7 +5,7 @@ const UniversalZid = {
     function (cookieName = 'uzid')
     {
       monster.get(cookieName);
-    }
+    },
 
   fetch:
     function (
