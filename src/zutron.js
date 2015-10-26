@@ -1,10 +1,10 @@
-var Cookie = require('js-cookie');
+var Cookies = require('js-cookie');
 
 const UniversalZid = {
   cookify:
     function (value, cookieName = 'uzid', expiry = 365)
     {
-      Cookie.set(cookieName, value, { expires: expiry });
+      Cookies.set(cookieName, value, { expires: expiry });
     },
 
   fetch:
@@ -63,7 +63,13 @@ const UniversalZid = {
     {
       let methodName = params.shift();
       this[methodName].apply(this, params);
-    }
+    },
+
+  uzid:
+    function (cookieName = 'uzid')
+    {
+      return Cookies.getJSON(cookieName);
+    },
 };
 
 export default UniversalZid;

@@ -1,4 +1,5 @@
-require('../src/zutron.js');
+var zutron  = require('../src/zutron.js');
+var Cookies = require('js-cookie');
 
 describe('UniversalZid', () => {
   var testUniversalZid;
@@ -12,9 +13,16 @@ describe('UniversalZid', () => {
   });
 
   describe('#cookify', function () {
-    it('sets the uzid cookie', function () {
+    it('sets the uzid cookie to a simple value', function () {
       var cookieValue = 'something';
       UniversalZid.cookify(cookieValue);
+      expect(Cookies.get('uzid')).toBe(cookieValue);
+    });
+
+    it('sets the uzid cookie to JSON', function () {
+      var cookieValue = { "a": 123 };
+      UniversalZid.cookify(cookieValue);
+      expect(Cookies.get('uzid')).toBe('{"a":123}');
     });
   });
 
@@ -64,6 +72,14 @@ describe('UniversalZid', () => {
       spyOn(testUniversalZid, 'fetch')
       testUniversalZid.push(params);
       expect(testUniversalZid.fetch).toHaveBeenCalledWith('foo');
+    });
+  });
+
+  describe('#uzid', function () {
+    it('should return the cookie', function () {
+      var value = { "whatever": 123 };
+      Cookies.set('uzid', value);
+      expect(testUniversalZid.uzid().whatever).toBe(123);
     });
   });
 });
