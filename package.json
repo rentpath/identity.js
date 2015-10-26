@@ -27,7 +27,8 @@
   },
   "homepage": "https://github.com/rentpath/zutron-universal-zid-tracker",
   "dependencies": {
-    "babel-runtime": "^5.1.10"
+    "babel-runtime": "^5.1.10",
+    "cookie-monster": "https://github.com/jgallen23/cookie-monster.git#288a8098318fa6ec917a2bffaae9fdca5acf3629"
   },
   "devDependencies": {
     "babel-core": "^5.4.5",

@@ -2,6 +2,7 @@ require('../src/zutron.js');
 
 describe('UniversalZid', () => {
   var testUniversalZid;
+
   beforeEach(function () {
     testUniversalZid = UniversalZid;
   });
@@ -10,13 +11,8 @@ describe('UniversalZid', () => {
     expect(testUniversalZid).toBeDefined();
   });
 
-  describe('#push', function () {
-    it('should call the supplied function', function () {
-      var params = ['fetch', 'foo'];
-      spyOn(testUniversalZid, 'fetch')
-      testUniversalZid.push(params);
-      expect(testUniversalZid.fetch).toHaveBeenCalledWith('foo');
-    });
+  describe('#cookify', function () {
+    UniversalZid.cookify();
   });
 
   describe('#fetch', function () {
@@ -58,4 +54,13 @@ describe('UniversalZid', () => {
       expect(errorFn).toHaveBeenCalled();
     });
   })
+
+  describe('#push', function () {
+    it('should call the supplied function', function () {
+      var params = ['fetch', 'foo'];
+      spyOn(testUniversalZid, 'fetch')
+      testUniversalZid.push(params);
+      expect(testUniversalZid.fetch).toHaveBeenCalledWith('foo');
+    });
+  });
 });

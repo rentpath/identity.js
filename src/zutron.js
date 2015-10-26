@@ -1,4 +1,7 @@
 const UniversalZid = {
+  cookify:
+    monster.get('cheese');
+
   fetch:
     function (
       successFn,
