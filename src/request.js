@@ -1,10 +1,10 @@
 class Request {
   constructor(
     successFn,
-    errorFn,
-    host,
-    target,
+    errorFn   = () => {},
+    host      = 'http://zutron.primedia.com',
     port      = 80,
+    target    = '/universal_zids/new',
     method    = 'GET',
     retries   = 3,
     timeout   = 500,
@@ -63,7 +63,8 @@ class Request {
         this.port,
         this.retries - 1,
         this.timeout,
-        this.timeoutFn);
+        this.timeoutFn
+      );
       retry.send();
     } else {
       this.onerror('timeout');
