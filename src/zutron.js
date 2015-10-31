@@ -3,13 +3,13 @@ import Request from './request';
 const Cookies = require('js-cookie');
 
 const UniversalZid = {
-  _fetch:
-    function (successFn, failureFn, zidUuid, host, port, method, action) {
+  _request:
+    function (successFn, failureFn, zidUuid, host, port, action) {
       UniversalZid.fetch(
-        function (data) {
-          let uzid   = data['uzid'];
+        function () {
+          let uzid   = this.universal_zid.uuid;
           let target = `/universal_zids/${uzid}/${action}/${zidUuid}`;
-          let xhr    = new Request(successFn, failureFn, host, port, target);
+          let xhr    = new Request(successFn, failureFn, host, port, target, 'POST');
           xhr.send(); },
         failureFn,
         host,
@@ -27,7 +27,7 @@ const UniversalZid = {
 
   link:
     function (successFn, failureFn, zidUuid, host, port) {
-      UniversalZid._fetch(successFn, failureFn, zidUuid, host, port, 'POST', 'zid_link'); },
+      UniversalZid._request(successFn, failureFn, zidUuid, host, port, 'zid_link'); },
 
   push:
     function (params) {
@@ -36,7 +36,7 @@ const UniversalZid = {
 
   unlink:
     function (successFn, failureFn, zidUuid, host, port) {
-      UniversalZid._fetch(successFn, failureFn, zidUuid, host, port, 'POST', 'zid_decouple'); },
+      UniversalZid._request(successFn, failureFn, zidUuid, host, port, 'zid_decouple'); },
 
   uzid:
     function (cookieName = 'uzid') {

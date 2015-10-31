@@ -25,7 +25,7 @@ class Request {
     let path        = this.target.replace(/^\//, '');
     let url         = `${hostname}:${port}/${path}`;
 
-    this.request.open('GET', url, true);
+    this.request.open(method, url, true);
     this.request.setRequestHeader('Accept', 'application/json');
     this.request.setRequestHeader('Content-Type', 'application/json');
 
