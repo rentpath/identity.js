@@ -7,6 +7,25 @@ describe('Request', () => {
   beforeEach(function () {
     jasmine.Ajax.install(); });
 
+  it('sets the timeout, retries, and timeout calback', function() {
+    let retries   = 10;
+    let timeout   = 2000;
+    let timeoutFn = jasmine.createSpy('onTimeout');
+    let r         = new Request(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      retries,
+      timeout,
+      timeoutFn);
+    expect(r.retries).toBe(retries);
+    expect(r.timeout).toBe(timeout);
+    expect(r.timeoutFn).toBe(timeoutFn);
+  });
+
   it('assembles a default URL', function () {
     let defaultHost   = 'http://zutron.primedia.com';
     let defaultPort   = 80;
@@ -30,5 +49,54 @@ describe('Request', () => {
     var lastRequest = jasmine.Ajax.requests.mostRecent();
     expect(lastRequest.method).toBe(method);
     expect(lastRequest.url).toBe(`${host}:${port}${target}`);
+  });
+
+  it('calls the success callback', function () {
+    jasmine.Ajax.stubRequest(
+      /.*\/universal_zids\/new/
+    ).andReturn({
+      status:       201,
+      statusText:   'Created',
+      contentType:  'application/json',
+      responseText: '{}'
+    });
+
+    let successFn = jasmine.createSpy('onSuccess');
+    let r         = new Request(successFn, () => {});
+    r.send();
+    let recent    = jasmine.Ajax.requests.mostRecent();
+    expect(successFn).toHaveBeenCalled();
+  });
+
+  it('calls the failure callback', function () {
+    let successFn = jasmine.createSpy('onSuccess');
+    let failureFn = jasmine.createSpy('onFailure');
+    let r         = new Request(successFn, failureFn);
+    jasmine.clock().install();
+    r.send();
+    let recent    = jasmine.Ajax.requests.mostRecent();
+    recent.responseTimeout();
+    expect(failureFn).toHaveBeenCalled();
+    jasmine.clock().uninstall();
+  });
+
+  it('calls the timeout callback', function () {
+    let timeoutFn = jasmine.createSpy('onTimeout');
+    let r         = new Request(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      timeoutFn);
+    jasmine.clock().install();
+    r.send();
+    let recent    = jasmine.Ajax.requests.mostRecent();
+    recent.responseTimeout();
+    expect(timeoutFn).toHaveBeenCalled();
+    jasmine.clock().uninstall();
   });
 });
