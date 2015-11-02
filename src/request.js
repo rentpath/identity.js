@@ -8,7 +8,7 @@ class Request {
     method    = 'GET',
     retries   = 3,
     timeout   = 500,
-    timeoutFn = this.defaultTimeout)
+    timeoutFn)
   {
     this.failureFn  = failureFn;
     this.host       = host;
@@ -46,30 +46,35 @@ class Request {
       }
     };
 
-    this.request.ontimeout = this.timeoutFn;
+    this.request.ontimeout = function () {
+      if (timeoutFn) {
+        timeoutFn();
+        return;
+      }
+
+      if (retries > 0) {
+        retry().send();
+      } else {
+        this.onerror('timeout');
+      }
+    };
   }
 
-  defaultTimeout()
+  retry = () =>
   {
-    if (this.retries > 0) {
-      let retry = new Request(
-        this.successFn,
-        this.failureFn,
-        this.host,
-        this.target,
-        this.method,
-        this.port,
-        this.retries - 1,
-        this.timeout,
-        this.timeoutFn
-      );
-      retry.send();
-    } else {
-      this.onerror('timeout');
-    }
+    new Request(
+      this.successFn,
+      this.failureFn,
+      this.host,
+      this.target,
+      this.method,
+      this.port,
+      this.retries - 1,
+      this.timeout,
+      this.timeoutFn);
   }
 
-  send()
+  send = () =>
   {
     this.request.timeout = this.timeout;
     this.request.send();
