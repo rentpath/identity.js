@@ -70,15 +70,6 @@ describe('Request', () => {
     expect(successFn).toHaveBeenCalled();
   });
 
-  it('retries the original request', function () {
-    let r         = new Request(() => {}, () => {});
-    spyOn(r, 'retry');
-    r.send();
-    let recent    = jasmine.Ajax.requests.mostRecent();
-    let response  = recent.responseTimeout();
-    expect(r.retry).toHaveBeenCalled();
-  });
-
   it('calls the failure callback', function () {
     let successFn = jasmine.createSpy('onSuccess');
     let failureFn = jasmine.createSpy('onFailure');
