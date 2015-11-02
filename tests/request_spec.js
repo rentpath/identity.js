@@ -2,10 +2,12 @@ var Request = require('../src/request.js');
 
 describe('Request', () => {
   afterEach(function () {
-    jasmine.Ajax.uninstall(); });
+    jasmine.Ajax.uninstall();
+    jasmine.clock().uninstall(); });
 
   beforeEach(function () {
-    jasmine.Ajax.install(); });
+    jasmine.Ajax.install();
+    jasmine.clock().install(); });
 
   it('sets the timeout, retries, and timeout calback', function() {
     let retries   = 10;
@@ -72,12 +74,10 @@ describe('Request', () => {
     let successFn = jasmine.createSpy('onSuccess');
     let failureFn = jasmine.createSpy('onFailure');
     let r         = new Request(successFn, failureFn);
-    jasmine.clock().install();
     r.send();
     let recent    = jasmine.Ajax.requests.mostRecent();
     recent.responseTimeout();
     expect(failureFn).toHaveBeenCalled();
-    jasmine.clock().uninstall();
   });
 
   it('calls the timeout callback', function () {
@@ -92,11 +92,9 @@ describe('Request', () => {
       undefined,
       undefined,
       timeoutFn);
-    jasmine.clock().install();
     r.send();
     let recent    = jasmine.Ajax.requests.mostRecent();
     recent.responseTimeout();
     expect(timeoutFn).toHaveBeenCalled();
-    jasmine.clock().uninstall();
   });
 });

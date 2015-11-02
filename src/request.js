@@ -1,7 +1,7 @@
 class Request {
   constructor(
     successFn,
-    errorFn   = () => {},
+    failureFn = () => {},
     host      = 'http://zutron.primedia.com',
     port      = 80,
     target    = '/universal_zids/new',
@@ -10,7 +10,7 @@ class Request {
     timeout   = 500,
     timeoutFn = this.defaultTimeout)
   {
-    this.errorFn    = errorFn;
+    this.failureFn  = failureFn;
     this.host       = host;
     this.method     = method;
     this.port       = port;
@@ -34,17 +34,15 @@ class Request {
         let data = JSON.parse(this.responseText);
         successFn.call(data);
       } else {
-        if (errorFn) {
-          errorFn(this.status, this.responseText);
-        }
+        failureFn(this.status, this.responseText);
       }
     };
 
     this.request.onerror = function () {
       if (this.readyState === 4 && this.status === 0) {
-        errorFn('NO_NETWORK');
+        failureFn('NO_NETWORK');
       } else {
-        errorFn(this.status, this.responseText);
+        failureFn(this.status, this.responseText);
       }
     };
 
@@ -56,7 +54,7 @@ class Request {
     if (this.retries > 0) {
       let retry = new Request(
         this.successFn,
-        this.errorFn,
+        this.failureFn,
         this.host,
         this.target,
         this.method,
