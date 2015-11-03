@@ -1,83 +1,52 @@
-var Cookies = require('js-cookie');
+import Request from './request';
+
+const Cookies = require('js-cookie');
 
 const UniversalZid = {
+  _request:
+    function (successFn, failureFn, zidUuid, host, port, action) {
+      UniversalZid.fetch(
+        function () {
+          let uzid   = this.universal_zid.uuid;
+          let target = `/universal_zids/${uzid}/${action}/${zidUuid}`;
+          let xhr    = new Request(successFn, failureFn, host, port, target, 'POST');
+          xhr.send(); },
+        failureFn,
+        host,
+        port ); },
+
   cookify:
-    function (value, cookieName = 'uzid', expiry = 365)
-    {
-      Cookies.set(cookieName, value, { expires: expiry });
-    },
+    function (value, cookieName = 'uzid', expiry = 365) {
+      Cookies.set(cookieName, value, { expires: expiry }); },
 
   fetch:
-    function (
-      successFn,
-      errorFn,
-      host    = 'http://zutron.primedia.com',
-      port    = 80,
-      target  = '/universal_zids/new',
-      retries = 3,
-      timeout = 500)
-    {
-      let path    = target.replace(/^\//, '');
-      let url     = `${host}:${port}/${path}`;
-      let request = new XMLHttpRequest();
+    function (successFn, errorFn, host, port, retries, timeout) {
+      let target = '/universal_zids/new';
+      let xhr    = new Request(successFn, errorFn, host, port, target, 'GET', retries, timeout);
+      xhr.send(); },
 
-      request.open('GET', url, true);
-      request.setRequestHeader('Accept', 'application/json');
-      request.setRequestHeader('Content-Type', 'application/json');
-
-      request.onload = function () {
-        if (request.status >= 200 && request.status < 400) {
-          let data = JSON.parse(request.responseText);
-          successFn.call(data);
-        } else {
-          if (errorFn) {
-            errorFn(this.status, this.responseText);
-          }
-        }
-      };
-
-      request.onerror = function () {
-        if (this.readyState === 4 && this.status === 0) {
-          errorFn('NO_NETWORK');
-        } else {
-          errorFn(this.status, this.responseText);
-        }
-      };
-
-      if (retries > 0) {
-        request.ontimeout = function () {
-          UniversalZid.fetch(successFn, errorFn, host, port, target, retries - 1, timeout);
-        };
-      } else {
-        request.ontimeout = function () {
-          errorFn('timeout');
-        };
-      }
-
-      request.timeout = timeout;
-      request.send();
-    },
+  link:
+    function (successFn, failureFn, zidUuid, host, port) {
+      UniversalZid._request(successFn, failureFn, zidUuid, host, port, 'zid_link'); },
 
   push:
-    function (params)
-    {
+    function (params) {
       let methodName = params.shift();
-      this[methodName].apply(this, params);
-    },
+      this[methodName].apply(this, params); },
+
+  unlink:
+    function (successFn, failureFn, zidUuid, host, port) {
+      UniversalZid._request(successFn, failureFn, zidUuid, host, port, 'zid_decouple'); },
 
   uzid:
-    function (cookieName = 'uzid')
-    {
-      return Cookies.getJSON(cookieName);
-    },
+    function (cookieName = 'uzid') {
+      return Cookies.getJSON(cookieName); }
 };
 
 export default UniversalZid;
 
 if (window && window.UniversalZid) {
   while (window.UniversalZid.length) {
-    UniversalZid.push(window.UniversalZid.shift());
-  }
-}
+    UniversalZid.push(window.UniversalZid.shift()); } }
 
 window.UniversalZid = UniversalZid;

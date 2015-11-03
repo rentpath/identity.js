@@ -17,7 +17,8 @@
     'no-multi-spaces': [1, {
       'exceptions': {
         'VariableDeclarator': true,
-        'AssignmentPattern': true
+        'AssignmentPattern': true,
+        'AssignmentExpression': true
       }
     }],
     'no-underscore-dangle': [0],

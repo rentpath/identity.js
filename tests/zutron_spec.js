@@ -57,9 +57,9 @@ describe('UniversalZid', () => {
     });
 
     it('should call error callback on timeout', function () {
-      var successFn = jasmine.createSpy('onLoad');
+      var successFn = jasmine.createSpy('onSuccess');
       var errorFn   = jasmine.createSpy('onTimeout');
-      testUniversalZid.fetch(successFn, errorFn, 'zutron.primedia.com', 80, '/universal_zids/new', 0);
+      testUniversalZid.fetch(successFn, errorFn, 'zutron.primedia.com', 80, 0);
       var request   = jasmine.Ajax.requests.mostRecent();
       request.responseTimeout();
       expect(errorFn).toHaveBeenCalled();
