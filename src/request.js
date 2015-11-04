@@ -23,6 +23,7 @@ class Request {
 
     let hostname    = this.host.replace(/\/$/, '');
     let path        = this.target.replace(/^\//, '');
+    let repeat      = function () { this.retry().send(); };
     let url         = `${hostname}:${port}/${path}`;
 
     this.request.open(method, url, true);
@@ -53,7 +54,7 @@ class Request {
       }
 
       if (retries > 0) {
-        retry().send();
+        repeat();
       } else {
         this.onerror('timeout');
       }
