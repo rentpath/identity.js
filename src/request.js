@@ -62,7 +62,7 @@ class Request {
 
   retry = () =>
   {
-    new Request(
+    return new Request(
       this.successFn,
       this.failureFn,
       this.host,
