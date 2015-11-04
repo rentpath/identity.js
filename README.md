@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/rentpath/zutron-universal-zid-tracker.svg?branch=dev)](https://travis-ci.org/rentpath/zutron-universal-zid-tracker)
+
+
 # Track a Universal ZID from Zutron
 
 ES technologies:
