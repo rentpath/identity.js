@@ -82,4 +82,22 @@ describe('UniversalZid', () => {
       expect(testUniversalZid.uzid().whatever).toBe(123);
     });
   });
+
+  describe('#link', function () {
+    it('should attempt the correct API call', function () {
+      var fn = jasmine.any(Function);
+      spyOn(testUniversalZid, '_request');
+      testUniversalZid.link(() => {}, () => {}, 'zidUuid', 'hostname.com', 8080);
+      expect(testUniversalZid._request).toHaveBeenCalledWith(fn, fn, 'zidUuid', 'hostname.com', 8080, 'zid_link');
+    });
+  });
+
+  describe('#unlink', function () {
+    it('should attempt the correct API call', function () {
+      var fn = jasmine.any(Function);
+      spyOn(testUniversalZid, '_request');
+      testUniversalZid.unlink(() => {}, () => {}, 'zidUuid', 'hostname.com', 8080);
+      expect(testUniversalZid._request).toHaveBeenCalledWith(fn, fn, 'zidUuid', 'hostname.com', 8080, 'zid_decouple');
+    });
+  });
 });
