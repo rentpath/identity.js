@@ -3,9 +3,12 @@ var Cookies = require('js-cookie');
 
 describe('UniversalZid', () => {
   var testUniversalZid;
+  var fn;
 
   beforeEach(function () {
     testUniversalZid = UniversalZid;
+    Cookies.remove('uzid');
+    fn = jasmine.any(Function);
   });
 
   it('object should exist', function () {
@@ -37,32 +40,54 @@ describe('UniversalZid', () => {
       jasmine.clock().uninstall();
     });
 
-    it('should call onLoad callback on success', function () {
-      jasmine.Ajax.stubRequest(
-          /.*\/universal_zids\/new/
-        ).andReturn({
-          status: 201,
-          statusText: 'Created',
-          contentType: 'application/json',
-          responseText: '{}'
-        });
+    describe('when the UZid does not exist', function () {
+      it('should call onLoad callback on success', function () {
+        jasmine.Ajax.stubRequest(
+            /.*\/universal_zids\/new/
+          ).andReturn({
+            status: 201,
+            statusText: 'Created',
+            contentType: 'application/json',
+            responseText: '{}'
+          });
 
-      var successFn = jasmine.createSpy('onLoad');
-      testUniversalZid.fetch(successFn, () => {}, 'hailzutron.primedia.com', 8080);
-      var request = jasmine.Ajax.requests.mostRecent();
-      expect(request.method).toBe('GET');
-      expect(request.url).toContain('hailzutron.primedia.com:8080');
-      expect(request.url).toContain('/universal_zids/new');
-      expect(successFn).toHaveBeenCalled();
+        var successFn = jasmine.createSpy('onLoad');
+        testUniversalZid.fetch(successFn, fn, 'hailzutron.primedia.com', 8080);
+        var request = jasmine.Ajax.requests.mostRecent();
+        expect(request.method).toBe('GET');
+        expect(request.url).toContain('hailzutron.primedia.com:8080');
+        expect(request.url).toContain('/universal_zids/new');
+        expect(successFn).toHaveBeenCalled();
+      });
+
+      it('should call error callback on timeout', function () {
+        var successFn = jasmine.createSpy('onSuccess');
+        var errorFn   = jasmine.createSpy('onTimeout');
+        testUniversalZid.fetch(successFn, errorFn, 'zutron.primedia.com', 80, 0);
+        var request   = jasmine.Ajax.requests.mostRecent();
+        request.responseTimeout();
+        expect(errorFn).toHaveBeenCalled();
+      });
     });
 
-    it('should call error callback on timeout', function () {
-      var successFn = jasmine.createSpy('onSuccess');
-      var errorFn   = jasmine.createSpy('onTimeout');
-      testUniversalZid.fetch(successFn, errorFn, 'zutron.primedia.com', 80, 0);
-      var request   = jasmine.Ajax.requests.mostRecent();
-      request.responseTimeout();
-      expect(errorFn).toHaveBeenCalled();
+    describe('when the UZid already exists', function () {
+      var value;
+
+      beforeEach(function () {
+        value = { uuid: 'acrunchycookie' };
+        Cookies.set('uzid', value);
+      });
+
+      it('does not perform external request for UZid', function () {
+        testUniversalZid.fetch(() => {}, () => {}, 'zutron.primedia.com', 80);
+        expect(jasmine.Ajax.requests.count()).toEqual(0);
+      });
+
+      it('returns the uzid value from cookie', function () {
+        var successFn = function () {
+          expect(this.universal_zid.uuid).toBe(value.uuid); };
+        testUniversalZid.fetch(successFn, fn, 'hailzutron.primedia.com', 8080);
+      });
     });
   })
 
@@ -87,7 +112,7 @@ describe('UniversalZid', () => {
     it('should attempt the correct API call', function () {
       var fn = jasmine.any(Function);
       spyOn(testUniversalZid, '_request');
-      testUniversalZid.link(() => {}, () => {}, 'zidUuid', 'hostname.com', 8080);
+      testUniversalZid.link(fn, fn, 'zidUuid', 'hostname.com', 8080);
       expect(testUniversalZid._request).toHaveBeenCalledWith(fn, fn, 'zidUuid', 'hostname.com', 8080, 'zid_link');
     });
   });
@@ -96,7 +121,7 @@ describe('UniversalZid', () => {
     it('should attempt the correct API call', function () {
       var fn = jasmine.any(Function);
       spyOn(testUniversalZid, '_request');
-      testUniversalZid.unlink(() => {}, () => {}, 'zidUuid', 'hostname.com', 8080);
+      testUniversalZid.unlink(fn, fn, 'zidUuid', 'hostname.com', 8080);
       expect(testUniversalZid._request).toHaveBeenCalledWith(fn, fn, 'zidUuid', 'hostname.com', 8080, 'zid_decouple');
     });
   });

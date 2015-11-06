@@ -21,10 +21,10 @@ class Request {
     this.timeout    = timeout;
     this.timeoutFn  = timeoutFn;
 
-    let hostname    = this.host.replace(/\/$/, '');
-    let path        = this.target.replace(/^\//, '');
-    let repeat      = function () { this.retry().send(); };
-    let url         = `${hostname}:${port}/${path}`;
+    const hostname    = this.host.replace(/\/$/, '');
+    const path        = this.target.replace(/^\//, '');
+    const repeat      = function () { this.retry().send(); };
+    const url         = `${hostname}:${port}/${path}`;
 
     this.request.open(method, url, true);
     this.request.setRequestHeader('Accept', 'application/json');
@@ -32,7 +32,7 @@ class Request {
 
     this.request.onload = function () {
       if (this.status >= 200 && this.status < 400) {
-        let data = JSON.parse(this.responseText);
+        const data = JSON.parse(this.responseText);
         successFn.call(data);
       } else {
         failureFn(this.status, this.responseText);
