@@ -7,9 +7,9 @@ const UniversalZid = {
     function (successFn, failureFn, zidUuid, host, port, action) {
       UniversalZid.fetch(
         function () {
-          let uzid   = this.universal_zid.uuid;
-          let target = `/universal_zids/${uzid}/${action}/${zidUuid}`;
-          let xhr    = new Request(successFn, failureFn, host, port, target, 'POST');
+          const uzid   = this.universal_zid.uuid;
+          const target = `/universal_zids/${uzid}/${action}/${zidUuid}`;
+          const xhr    = new Request(successFn, failureFn, host, port, target, 'POST');
           xhr.send(); },
         failureFn,
         host,
@@ -21,8 +21,14 @@ const UniversalZid = {
 
   fetch:
     function (successFn, errorFn, host, port, retries, timeout) {
-      let target = '/universal_zids/new';
-      let xhr    = new Request(successFn, errorFn, host, port, target, 'GET', retries, timeout);
+      const uzidUuid = UniversalZid.uzid();
+      if (uzidUuid && successFn) {
+        successFn.call({ 'universal_zid': uzidUuid });
+        return;
+      }
+
+      const target = '/universal_zids/new';
+      const xhr    = new Request(successFn, errorFn, host, port, target, 'GET', retries, timeout);
       xhr.send(); },
 
   link:
@@ -31,7 +37,7 @@ const UniversalZid = {
 
   push:
     function (params) {
-      let methodName = params.shift();
+      const methodName = params.shift();
       this[methodName].apply(this, params); },
 
   unlink:

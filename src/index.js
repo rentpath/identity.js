@@ -1,22 +1,13 @@
 import UniversalZid from './zutron';
-import Request from './request';
+
+const localhost = 'http://localhost';
+const port      = 3000;
 
 function report() {
+  const id = this.universal_zid.uuid;
+
   console.log('Reporting: ');
-  console.log(this.universal_zid.zids); }
+  console.log(id);
+  UniversalZid.cookify(id); };
 
-let localhost = 'http://127.0.0.1';
-let port      = 3000;
-
-let r = new Request(
-  function success() {
-    let zidUuid = this.zid.key;
-    UniversalZid.link(report, report, zidUuid, localhost, port); },
-  () => {},
-  localhost,
-  port,
-  '/zids/new');
-
-r.send();
-
-// UniversalZid.fetch(report, report, localhost, port);
+UniversalZid.fetch(report, report, localhost, port);
