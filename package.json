@@ -1,6 +1,6 @@
 {
   "name": "zutron-universal-zid-tracker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Allocate and track a universal ZID using Zutron as a backend.",
   "main": "zutron.js",
   "scripts": {
