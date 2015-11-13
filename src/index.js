@@ -8,6 +8,6 @@ function report() {
 
   console.log('Reporting: ');
   console.log(id);
-  UniversalZid.cookify(id); };
+  UniversalZid.cookify(id); }
 
 UniversalZid.fetch(report, report, localhost, port);
