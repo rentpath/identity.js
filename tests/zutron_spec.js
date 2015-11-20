@@ -74,7 +74,7 @@ describe('UniversalZid', () => {
       var value;
 
       beforeEach(function () {
-        value = { uuid: 'acrunchycookie' };
+        value = 'acrunchycookie';
         Cookies.set('uzid', value);
       });
 
@@ -85,11 +85,20 @@ describe('UniversalZid', () => {
 
       it('returns the uzid value from cookie', function () {
         var successFn = function () {
-          expect(this.universal_zid.uuid).toBe(value.uuid); };
+          expect(this.universal_zid.uuid).toBe(value); };
         testUniversalZid.fetch(successFn, fn, 'hailzutron.primedia.com', 8080);
       });
     });
   })
+
+  describe('#link', function () {
+    it('should attempt the correct API call', function () {
+      var fn = jasmine.any(Function);
+      spyOn(testUniversalZid, '_request');
+      testUniversalZid.link(fn, fn, 'zidUuid', 'hostname.com', 8080);
+      expect(testUniversalZid._request).toHaveBeenCalledWith(fn, fn, 'zidUuid', 'hostname.com', 8080, 'zid_link');
+    });
+  });
 
   describe('#push', function () {
     it('should call the supplied function', function () {
@@ -100,20 +109,44 @@ describe('UniversalZid', () => {
     });
   });
 
+  describe('#track', function () {
+    beforeEach(function () {
+      jasmine.Ajax.install();
+      jasmine.clock().install();
+    });
+
+    afterEach(function () {
+      jasmine.Ajax.uninstall();
+      jasmine.clock().uninstall();
+    });
+
+    describe('logs an access request', function () {
+      it('should call onLoad callback on success', function () {
+        var cookieValue = 'something';
+        UniversalZid.cookify(cookieValue);
+
+        jasmine.Ajax.stubRequest(
+            /.*\/universal_zids\/something\/access/
+          ).andReturn({
+            status: 201,
+            statusText: 'Created',
+            contentType: 'application/json',
+            responseText: '{}'
+          });
+
+        testUniversalZid.track(() => {}, () => {}, 'hailzutron.primedia.com', 8080);
+        var request = jasmine.Ajax.requests.mostRecent();
+        expect(request.method).toBe('POST');
+        expect(request.url).toContain('/universal_zids/something/access_log');
+      });
+    });
+  });
+
   describe('#uzid', function () {
     it('should return the cookie', function () {
       var value = { "whatever": 123 };
       Cookies.set('uzid', value);
       expect(testUniversalZid.uzid().whatever).toBe(123);
-    });
-  });
-
-  describe('#link', function () {
-    it('should attempt the correct API call', function () {
-      var fn = jasmine.any(Function);
-      spyOn(testUniversalZid, '_request');
-      testUniversalZid.link(fn, fn, 'zidUuid', 'hostname.com', 8080);
-      expect(testUniversalZid._request).toHaveBeenCalledWith(fn, fn, 'zidUuid', 'hostname.com', 8080, 'zid_link');
     });
   });
 
