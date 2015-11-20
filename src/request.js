@@ -77,7 +77,7 @@ class Request {
 
   send = () =>
   {
-    this.request.timeout = this.timeout;
+    this.request.timeout         = this.timeout;
     this.request.send();
   }
 }
