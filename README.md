@@ -7,18 +7,19 @@
 
 If your site already manages tags with _Google Tag Manager_ (GTM), adding a RentPath Universal
 Identity (RUID) requires very little effort. Specifically, two new tags are needed:
-the first tag loads asynchronously the RUID JavaScript library, while the second tag creates
-the RUID (if necessary) and tracks it use. Both tags must fire on all pages.
+one tag to load the RUID JavaScript library, and a second to create
+the RUID (if necessary) and track its use.
+Both tags must appear and fire on all pages on your site.
 
-Open your GTM console and add the first tag to load the requisite code.
+Open your GTM console and create the tag to load the library.
 
 1. Click **New Tag**.
 
-2. On the next screen, name the tag _Load RUID Library_.
+2. On the next screen, click at top and name the tag _Load RUID Library_.
 
-3. When asked to choose a type, select **Custom HTML Tag**.
+3. When asked to choose a type for the tag, select **Custom HTML Tag**.
 
-4. Enter the code:
+4. Copy and paste the following code into the configuration text box:
 
   ```
   <script async type="text/javascript"
@@ -26,7 +27,7 @@ Open your GTM console and add the first tag to load the requisite code.
   </script>
   ```
 
-5. Choose **Fire on All Pages**
+5. Choose the trigger to **Fire on All Pages**.
 
 6. Save the tag.
 
@@ -39,7 +40,7 @@ Next, create the tag to create and track the RUID.
 
 3. Choose **Custom HTML Tag** again.
 
-4. Enter the code:
+4. Copy and paste this piece of code:
 
   ```
   <script>
@@ -48,12 +49,15 @@ Next, create the tag to create and track the RUID.
   </script>
   ```
 
-5. Again, choose a trigget to **Fire on All Pages**.
+5. Again, choose a trigger to **Fire on All Pages**.
 
 6. Save the tag.
 
 
-Finally, open a container that is present on each page of your site, add the _Load RUID Library_ and _Track RUID_ tags, and publish the new version of the container. Once published, the new tags should work immediately.
+Finally, open a container that is present on each page of your site, add both
+the _Load RUID Library_ and _Track RUID_ tags you jsut created, and publish the new version of the container.
+
+Once published, the tracking code should work immediately.
 
 
 
