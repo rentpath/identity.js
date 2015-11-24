@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e6d7e282bf86cfcfc8b2"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8fbd7ccb4678927e8066"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -9577,14 +9577,13 @@
 	  console.log('Reporting: ');
 	  console.log(id);
 	  _zutron2['default'].cookify(id);
+	  _zutron2['default'].track(function () {
+	    console.log('Success!');
+	  }, function () {}, localhost, port);
 	  console.log(_zutron2['default'].uzid());
 	}
 	
 	_zutron2['default'].fetch(report, function () {}, localhost, port);
-	
-	_zutron2['default'].track(function () {
-	  console.log('Success!');
-	}, function () {}, localhost, port);
 
 /***/ },
 /* 62 */
@@ -9743,6 +9742,7 @@
 	  };
 	
 	  this.send = function () {
+	    _this.request.withCredentials = true;
 	    _this.request.timeout = _this.timeout;
 	    _this.request.send();
 	  };
@@ -9760,9 +9760,7 @@
 	
 	  var hostname = this.host.replace(/\/$/, '');
 	  var path = this.target.replace(/^\//, '');
-	  var repeat = function repeat() {
-	    this.retry().send();
-	  };
+	  var repeat = this.retry;
 	  var url = hostname + ':' + port + '/' + path;
 	
 	  this.request.open(method, url, true);
@@ -9793,7 +9791,7 @@
 	    }
 	
 	    if (retries > 0) {
-	      repeat();
+	      repeat().send();
 	    } else {
 	      this.onerror('timeout');
 	    }
