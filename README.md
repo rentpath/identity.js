@@ -3,6 +3,32 @@
 
 # Track a Universal RentPath Identity
 
+## For Javascript Developers
+
+If you are a JavaScript developer and regularly use open source libraries, adding a RentPath Universal
+Identity (RUID) to your site requires little effort. The bulk of work is already captured
+in this library. In most cases, integration requires just two snippets of code.
+
+Copy and paste the following snippets into your application so that each page view executes the code. (For example, embed the code into a header or footer or other element that appears on all pages in the site.)
+
+
+```
+<script async type="text/javascript"
+  src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/dev/bundle.js">
+</script>
+
+<script>
+  window.UniversalZid = window.UniversalZid || [];
+  window.UniversalZid.push(['track', function (){}, function (){}, 'http://zutron.qa.primedia.com']);
+</script>
+
+```
+
+To test proper operation, open your application (perhaps after a server restart or cache purge to pick
+up the new JavaScript code) and look in the Cookies section of your browser developer tool. If you see
+a new cookie named `uzid`, tracking is operational.
+
+
 ## For Developers with Existing Google Tag Manager Tags
 
 If your site already manages tags with _Google Tag Manager_ (GTM), adding a RentPath Universal
