@@ -9,8 +9,8 @@ function report() {
   console.log('Reporting: ');
   console.log(id);
   UniversalZid.cookify(id);
+  UniversalZid.track(() => { console.log('Success!'); }, () => {}, localhost, port);
   console.log(UniversalZid.uzid()); }
 
 UniversalZid.fetch(report, () => {}, localhost, port);
 
-UniversalZid.track(() => { console.log('Success!'); }, () => {}, localhost, port);
