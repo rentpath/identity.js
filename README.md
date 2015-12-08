@@ -11,8 +11,7 @@ in this library. In most cases, integration requires just two snippets of code.
 
 Copy and paste the following snippets into your application so that each page view executes the code. (For example, embed the code into a header or footer or other element that appears on all pages in the site.)
 
-
-```
+```javascript
 <script async type="text/javascript"
   src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/dev/bundle.js">
 </script>
@@ -47,7 +46,7 @@ Open your GTM console and create the tag to load the library.
 
 4. Copy and paste the following code into the configuration text box:
 
-  ```
+  ```javascript
   <script async type="text/javascript"
     src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/dev/bundle.js">
   </script>
@@ -68,7 +67,7 @@ Next, create the tag to create and track the RUID.
 
 4. Copy and paste this piece of code:
 
-  ```
+  ```javascript
   <script>
     window.UniversalZid = window.UniversalZid || [];
     window.UniversalZid.push(['track', function (){}, function (){}, 'http://zutron.qa.primedia.com']);
@@ -81,7 +80,7 @@ Next, create the tag to create and track the RUID.
 
 
 Finally, open a container that is present on each page of your site, add both
-the _Load RUID Library_ and _Track RUID_ tags you jsut created, and publish the new version of the container.
+the _Load RUID Library_ and _Track RUID_ tags you just created, and publish the new version of the container.
 
 Once published, the tracking code should work immediately.
 
