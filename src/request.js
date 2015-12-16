@@ -2,7 +2,7 @@ class Request {
   constructor(
     successFn,
     failureFn = () => {},
-    host      = 'http://zutron.primedia.com',
+    host      = 'http://zutron.prod.services.rentpath.com',
     port      = 80,
     target    = '/universal_zids/new',
     method    = 'GET',
