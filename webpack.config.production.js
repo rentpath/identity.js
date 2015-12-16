@@ -40,39 +40,32 @@
 
 /* eslint-disable no-var */
 var webpack = require('webpack');
-var path = require('path');
+var path    = require('path');
+var version = require('./package.json').version;
 
 module.exports = {
   entry: './src/index',
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
-  },
+
   resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
+    extensions: ['', '.js', '.jsx'] },
+
   devtool: 'source-map',
+
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false
-      }
-    })
-  ],
+        warnings: false } })],
+
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
         loaders: ['babel'],
-        include: path.join(__dirname, 'scripts')
-      }
-    ]
-  }
+        include: path.join(__dirname, 'src') } ] },
+
+  output: {
+    filename:   'zuzt-' + version + '.min.js',
+    path:       path.join(__dirname, 'dist'),
+    publicPath: '/' }
 };

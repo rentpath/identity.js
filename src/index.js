@@ -1,7 +1,7 @@
 import UniversalZid from './zutron';
 
-const localhost = 'http://localhost';
-const port      = 3000;
+const host = 'http://zutron.prod.services.rentpath.com';
+const port = 80;
 
 function report() {
   const id = this.universal_zid.uuid;
@@ -9,8 +9,8 @@ function report() {
   console.log('Reporting: ');
   console.log(id);
   UniversalZid.cookify(id);
-  UniversalZid.track(() => { console.log('Success!'); }, () => {}, localhost, port);
+  UniversalZid.track(() => { console.log('Success!'); }, () => {}, host, port);
   console.log(UniversalZid.uzid()); }
 
-UniversalZid.fetch(report, () => {}, localhost, port);
+UniversalZid.fetch(report, () => {}, host, port);
 

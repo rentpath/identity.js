@@ -13,12 +13,12 @@ Copy and paste the following snippets into your application so that each page vi
 
 ```javascript
 <script async type="text/javascript"
-  src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/dev/bundle.js">
+  src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/master/dist/zuzt-1.1.0.js">
 </script>
 
 <script>
   window.UniversalZid = window.UniversalZid || [];
-  window.UniversalZid.push(['track', function (){}, function (){}, 'http://zutron.qa.primedia.com']);
+  window.UniversalZid.push(['track', function (){}, function (){}, 'http://zutron.prod.services.rentpath.com']);
 </script>
 
 ```
@@ -48,7 +48,7 @@ Open your GTM console and create the tag to load the library.
 
   ```javascript
   <script async type="text/javascript"
-    src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/dev/bundle.js">
+    src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/master/dist/zuzt-1.1.0.js">
   </script>
   ```
 
@@ -70,7 +70,7 @@ Next, create the tag to create and track the RUID.
   ```javascript
   <script>
     window.UniversalZid = window.UniversalZid || [];
-    window.UniversalZid.push(['track', function (){}, function (){}, 'http://zutron.qa.primedia.com']);
+    window.UniversalZid.push(['track', function (){}, function (){}, 'http://zutron.prod.services.rentpath.com']);
   </script>
   ```
 
