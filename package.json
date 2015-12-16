@@ -54,7 +54,7 @@
     "phantomjs": "^1.9.17",
     "phantomjs-polyfill": "0.0.1",
     "requirejs": "~2.1",
-    "tautline": "git+ssh://git@github.com:RentPath/tautline.git#v0.3.3",
+    "tautline": "git+ssh://git@github.com:rentpath/tautline.git#v0.3.3",
     "webpack": "^1.10.5",
     "webpack-dev-server": "^1.8.0"
   }
