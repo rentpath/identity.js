@@ -18,7 +18,7 @@ Copy and paste the following snippets into your application so that each page vi
 
 <script>
   window.UniversalZid = window.UniversalZid || [];
-  window.UniversalZid.push(['track', function (){}, function (){}, 'http://zutron.qa.primedia.com']);
+  window.UniversalZid.push(['track', function (){}, function (){}, 'http://zutron.prod.services.rentpath.com']);
 </script>
 
 ```
@@ -70,7 +70,7 @@ Next, create the tag to create and track the RUID.
   ```javascript
   <script>
     window.UniversalZid = window.UniversalZid || [];
-    window.UniversalZid.push(['track', function (){}, function (){}, 'http://zutron.qa.primedia.com']);
+    window.UniversalZid.push(['track', function (){}, function (){}, 'http://zutron.prod.services.rentpath.com']);
   </script>
   ```
 
