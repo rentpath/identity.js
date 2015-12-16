@@ -43,17 +43,13 @@
 /* eslint-disable no-var */
 var webpack = require('webpack');
 var path    = require('path');
+var version = require('./package.json').version;
 
 module.exports = {
   entry: [
     'webpack-dev-server/client?http://127.0.0.1:5000',
     'webpack/hot/dev-server',
     './src/index' ],
-
-  output: {
-    filename:   'bundle.js',
-    path:       __dirname,
-    publicPath: '/' },
 
   resolve: {
     extensions: ['', '.js', '.jsx'] },
@@ -69,5 +65,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loaders: ['babel'],
-        include: path.join(__dirname, 'src') } ] }
+        include: path.join(__dirname, 'src') } ] },
+
+  output: {
+    filename:   'zuzt-' + version + '.js',
+    path:       path.join(__dirname, 'dist'),
+    publicPath: '/' }
 };
