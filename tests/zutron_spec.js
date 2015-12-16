@@ -52,10 +52,10 @@ describe('UniversalZid', () => {
           });
 
         var successFn = jasmine.createSpy('onLoad');
-        testUniversalZid.fetch(successFn, fn, 'hailzutron.primedia.com', 8080);
+        testUniversalZid.fetch(successFn, fn, 'hailzutron.prod.services.rentpath.com', 8080);
         var request = jasmine.Ajax.requests.mostRecent();
         expect(request.method).toBe('GET');
-        expect(request.url).toContain('hailzutron.primedia.com:8080');
+        expect(request.url).toContain('hailzutron.prod.services.rentpath.com:8080');
         expect(request.url).toContain('/universal_zids/new');
         expect(successFn).toHaveBeenCalled();
       });
@@ -63,7 +63,7 @@ describe('UniversalZid', () => {
       it('should call error callback on timeout', function () {
         var successFn = jasmine.createSpy('onSuccess');
         var errorFn   = jasmine.createSpy('onTimeout');
-        testUniversalZid.fetch(successFn, errorFn, 'zutron.primedia.com', 80, 0);
+        testUniversalZid.fetch(successFn, errorFn, 'zutron.prod.services.rentpath.com', 80, 0);
         var request   = jasmine.Ajax.requests.mostRecent();
         request.responseTimeout();
         expect(errorFn).toHaveBeenCalled();
@@ -79,14 +79,14 @@ describe('UniversalZid', () => {
       });
 
       it('does not perform external request for UZid', function () {
-        testUniversalZid.fetch(() => {}, () => {}, 'zutron.primedia.com', 80);
+        testUniversalZid.fetch(() => {}, () => {}, 'zutron.prod.services.rentpath.com', 80);
         expect(jasmine.Ajax.requests.count()).toEqual(0);
       });
 
       it('returns the uzid value from cookie', function () {
         var successFn = function () {
           expect(this.universal_zid.uuid).toBe(value); };
-        testUniversalZid.fetch(successFn, fn, 'hailzutron.primedia.com', 8080);
+        testUniversalZid.fetch(successFn, fn, 'hailzutron.prod.services.rentpath.com', 8080);
       });
     });
   })
@@ -134,7 +134,7 @@ describe('UniversalZid', () => {
             responseText: '{}'
           });
 
-        testUniversalZid.track(() => {}, () => {}, 'hailzutron.primedia.com', 8080);
+        testUniversalZid.track(() => {}, () => {}, 'hailzutron.prod.services.rentpath.com', 8080);
         var request = jasmine.Ajax.requests.mostRecent();
         expect(request.method).toBe('POST');
         expect(request.url).toContain('/universal_zids/something/access_log');

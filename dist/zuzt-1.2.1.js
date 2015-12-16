@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8fbd7ccb4678927e8066"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b7a32fc299811cc24a5d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -9568,8 +9568,8 @@
 	
 	var _zutron2 = _interopRequireDefault(_zutron);
 	
-	var localhost = 'http://localhost';
-	var port = 3000;
+	var host = 'http://zutron.prod.services.rentpath.com';
+	var port = 80;
 	
 	function report() {
 	  var id = this.universal_zid.uuid;
@@ -9579,11 +9579,11 @@
 	  _zutron2['default'].cookify(id);
 	  _zutron2['default'].track(function () {
 	    console.log('Success!');
-	  }, function () {}, localhost, port);
+	  }, function () {}, host, port);
 	  console.log(_zutron2['default'].uzid());
 	}
 	
-	_zutron2['default'].fetch(report, function () {}, localhost, port);
+	_zutron2['default'].fetch(report, function () {}, host, port);
 
 /***/ },
 /* 62 */
@@ -9725,7 +9725,7 @@
 	
 	var Request = function Request(successFn, failureFn, host, port, target, method, retries, timeout, timeoutFn) {
 	  if (failureFn === undefined) failureFn = function () {};
-	  if (host === undefined) host = 'http://zutron.primedia.com';
+	  if (host === undefined) host = 'http://zutron.prod.services.rentpath.com';
 	  if (port === undefined) port = 80;
 	  if (target === undefined) target = '/universal_zids/new';
 	  if (method === undefined) method = 'GET';
@@ -9968,4 +9968,4 @@
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=zuzt-1.2.1.js.map
