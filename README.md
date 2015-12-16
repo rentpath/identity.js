@@ -13,7 +13,7 @@ Copy and paste the following snippets into your application so that each page vi
 
 ```javascript
 <script async type="text/javascript"
-  src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/master/bundle.js">
+  src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/master/dist/zuzt-1.1.0.js">
 </script>
 
 <script>
@@ -48,7 +48,7 @@ Open your GTM console and create the tag to load the library.
 
   ```javascript
   <script async type="text/javascript"
-    src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/master/bundle.js">
+    src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/master/dist/zuzt-1.1.0.js">
   </script>
   ```
 
