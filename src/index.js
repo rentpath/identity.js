@@ -13,4 +13,3 @@ function report() {
   console.log(UniversalZid.uzid()); }
 
 UniversalZid.fetch(report, () => {}, host, port);
-
