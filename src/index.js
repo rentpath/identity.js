@@ -1,6 +1,6 @@
 import UniversalZid from './zutron';
 
-const host = 'http://zutron.qa.primedia.com';
+const host = 'http://zutron.prod.services.rentpath.com';
 const port = 80;
 
 function report() {
