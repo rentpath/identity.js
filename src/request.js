@@ -21,10 +21,10 @@ class Request {
     this.timeout    = timeout;
     this.timeoutFn  = timeoutFn;
 
-    const hostname    = this.host.replace(/\/$/, '');
-    const path        = this.target.replace(/^\//, '');
-    const repeat      = this.retry;
-    const url         = `${hostname}:${port}/${path}`;
+    const hostname  = this.host.replace(/\/$/, '');
+    const path      = this.target.replace(/^\//, '');
+    const repeat    = this.retry;
+    const url       = `${hostname}:${port}/${path}`;
 
     this.request.open(method, url, true);
     this.request.setRequestHeader('Accept', 'application/json');
