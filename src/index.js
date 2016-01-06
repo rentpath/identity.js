@@ -1,6 +1,6 @@
-import UniversalZid from './zutron';
+import Identity from './identity';
 
-const host = 'http://zutron.prod.services.rentpath.com';
+const host = 'http://identity.rentpathservices.com';
 const port = 80;
 
 function report() {
@@ -8,8 +8,8 @@ function report() {
 
   console.log('Reporting: ');
   console.log(id);
-  UniversalZid.cookify(id);
-  UniversalZid.track(() => { console.log('Success!'); }, () => {}, host, port);
-  console.log(UniversalZid.uzid()); }
+  Identity.cookify(id);
+  Identity.track(() => { console.log('Success!'); }, () => {}, host, port);
+  console.log(Identity.uzid()); }
 
-UniversalZid.fetch(report, () => {}, host, port);
+Identity.fetch(report, () => {}, host, port);

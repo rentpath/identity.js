@@ -29,7 +29,7 @@ describe('Request', () => {
   });
 
   it('assembles a default URL', function () {
-    let defaultHost   = 'http://zutron.prod.services.rentpath.com';
+    let defaultHost   = 'http://identity.rentpathservices.com';
     let defaultPort   = 80;
     let defaultTarget = '/universal_zids/new';
     let r = new Request(() => {});

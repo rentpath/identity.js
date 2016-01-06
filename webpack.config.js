@@ -41,9 +41,11 @@
  */
 
 /* eslint-disable no-var */
-var webpack = require('webpack');
+var json    = require('./package.json');
+var name    = json.name;
 var path    = require('path');
-var version = require('./package.json').version;
+var webpack = require('webpack');
+var version = json.version;
 
 module.exports = {
   entry: [
@@ -68,7 +70,7 @@ module.exports = {
         include: path.join(__dirname, 'src') } ] },
 
   output: {
-    filename:   'zuzt-' + version + '.js',
+    filename:   name + '-' + version + '.js',
     path:       path.join(__dirname, 'dist'),
     publicPath: '/' }
 };

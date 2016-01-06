@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rentpath/zutron-universal-zid-tracker.svg?branch=dev)](https://travis-ci.org/rentpath/zutron-universal-zid-tracker)
+[![Build Status](https://travis-ci.org/rentpath/identity.js.svg?branch=dev)](https://travis-ci.org/rentpath/identity.js)
 
 
 # Track a Universal RentPath Identity
@@ -9,16 +9,18 @@ If you are a JavaScript developer and regularly use open source libraries, addin
 Identity (RUID) to your site requires little effort. The bulk of work is already captured
 in this library. In most cases, integration requires just two snippets of code.
 
-Copy and paste the following snippets into your application so that each page view executes the code. (For example, embed the code into a header or footer or other element that appears on all pages in the site.)
+Copy and paste the following snippets into your Web site or application so that each page
+view executes the code. For example, embed the code into a header or footer
+or other element that is rendered within all pages in the site.
 
 ```javascript
 <script async type="text/javascript"
-  src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/master/dist/zuzt-1.1.0.min.js">
+  src="http://www.rentpathcode.com/identity/1.2.0/identity-1.2.0.min.js">
 </script>
 
 <script>
-  window.UniversalZid = window.UniversalZid || [];
-  window.UniversalZid.push(['track', function (){}, function (){}, 'http://zutron.prod.services.rentpath.com']);
+  window.Identity = window.Identity || [];
+  window.Identity.push(['track', function (){}, function (){}, 'http://identity.rentpathservices.com']);
 </script>
 
 ```
@@ -30,11 +32,11 @@ a new cookie named `uzid`, tracking is operational.
 
 ## For Developers with Existing Google Tag Manager Tags
 
-If your site already manages tags with _Google Tag Manager_ (GTM), adding a RentPath Universal
-Identity (RUID) requires very little effort. Specifically, two new tags are needed:
-one tag to load the RUID JavaScript library, and a second to create
-the RUID (if necessary) and track its use.
-Both tags must appear and fire on all pages on your site.
+If your site manages page content with _Google Tag Manager_ (GTM), adding a
+RentPath Universal Identity (RUID) is quite simple. Specifically, two new tags
+are needed: one tag to load the RUID JavaScript library, and a second to
+create the RUID (if necessary) and track its use. Both tags must appear and
+fire on all pages on your site.
 
 Open your GTM console and create the tag to load the library.
 
@@ -48,7 +50,7 @@ Open your GTM console and create the tag to load the library.
 
   ```javascript
   <script async type="text/javascript"
-    src="https://rawgit.com/rentpath/zutron-universal-zid-tracker/master/dist/zuzt-1.1.0.min.js">
+    src="http://www.rentpathcode.com/identity/1.2.0/identity.min.js">
   </script>
   ```
 
@@ -69,8 +71,8 @@ Next, create the tag to create and track the RUID.
 
   ```javascript
   <script>
-    window.UniversalZid = window.UniversalZid || [];
-    window.UniversalZid.push(['track', function (){}, function (){}, 'http://zutron.prod.services.rentpath.com']);
+    window.Identity = window.Identity || [];
+    window.Identity.push(['track', function (){}, function (){}, 'http://identity.rentpathservices.com']);
   </script>
   ```
 
@@ -88,13 +90,13 @@ Once published, the tracking code should work immediately.
 
 ## For RUID Library Developers
 
-The Universal ZID tracker is an ES6 library. Instructions to download and prepare the library for development are available below.
+The RentPath Universal Identity is implemented as an ES6 library.
 
 
 ### Getting Started
 
 ```
-$ git clone git@github.com:rentpath/zutron-universal-zid-tracker.git
+$ git clone git@github.com:rentpath/identity.js.git
 $ npm install
 $ npm start
 
@@ -131,15 +133,22 @@ $ npm run test_watch
 
 ### Bundling
 
-To prepare code for a release, process the library through a number of filters to convert the ES6
-into widely usable (read: _antique_) Javascript. One command performs all the work:
+To prepare code for a release, process the library to convert the ES6
+into widely usable (read: _antique_) Javascript. Two commands perform the work:
 
 ```
-$ webpack -d
+$ webpack --debug --devtool sourcemap --output-pathinfo --config webpack.config.js
+$ webpack --config webpack.config.production.js
 ```
 
-The output is _./bundle.js_ and _./bundle.map.js_. Commit these new files to the repo and use
-Github to construct a new release.
+The output of the first command is *./dist/identity-*version*.js* and
+*./dist/identity-*version*.js.map*. The second command produces
+*./dist/identity-*version*.min.js* and
+*./dist/identity-*version*.min.js.map*. *version* is a string like `1.1.0`
+defined by semantic versioning. The version number can be modified in the
+*package.json*.
+
+Commit these new files to the repo and use Github to construct a new release.
 
 
 
