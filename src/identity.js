@@ -2,17 +2,17 @@ import Request from './request';
 
 const Cookies = require('js-cookie');
 
-const UniversalZid = {
+const Identity = {
   _request:
     function (successFn, failureFn, zidUuid, host, port, action, data) {
       const callback = function () {
-        const params = UniversalZid._serialize(data);
+        const params = Identity._serialize(data);
         const uzid   = this.universal_zid.uuid;
         const url    = `/universal_zids/${uzid}/${action}/${zidUuid}`;
         const target = params ? `${url}?${params}` : url;
         const xhr    = new Request(successFn, failureFn, host, port, target, 'POST');
         xhr.send(); };
-      UniversalZid.fetch(callback, failureFn, host, port ); },
+      Identity.fetch(callback, failureFn, host, port ); },
 
   _serialize:
     function (object) {
@@ -33,7 +33,7 @@ const UniversalZid = {
 
   fetch:
     function (successFn, errorFn, host, port, retries, timeout) {
-      const uzidUuid = UniversalZid.uzid();
+      const uzidUuid = Identity.uzid();
 
       if (uzidUuid && successFn) {
         successFn.call({ 'universal_zid': { 'uuid': uzidUuid } });
@@ -46,12 +46,12 @@ const UniversalZid = {
 
   link:
     function (successFn, failureFn, zidUuid, host, port) {
-      UniversalZid._request(successFn, failureFn, zidUuid, host, port, 'zid_link'); },
+      Identity._request(successFn, failureFn, zidUuid, host, port, 'zid_link'); },
 
   track:
     function (successFn, failureFn, host, port) {
       const data = { 'address': window.location.href };
-      UniversalZid._request(successFn, failureFn, '', host, port, 'access_log', data); },
+      Identity._request(successFn, failureFn, '', host, port, 'access_log', data); },
 
   push:
     function (params) {
@@ -60,17 +60,17 @@ const UniversalZid = {
 
   unlink:
     function (successFn, failureFn, zidUuid, host, port) {
-      UniversalZid._request(successFn, failureFn, zidUuid, host, port, 'zid_decouple'); },
+      Identity._request(successFn, failureFn, zidUuid, host, port, 'zid_decouple'); },
 
   uzid:
     function (cookieName = 'uzid') {
       return Cookies.getJSON(cookieName); }
 };
 
-export default UniversalZid;
+export default Identity;
 
-if (window && window.UniversalZid) {
-  while (window.UniversalZid.length) {
-    UniversalZid.push(window.UniversalZid.shift()); } }
+if (window && window.Identity) {
+  while (window.Identity.length) {
+    Identity.push(window.Identity.shift()); } }
 
-window.UniversalZid = UniversalZid;
+window.Identity = Identity;
