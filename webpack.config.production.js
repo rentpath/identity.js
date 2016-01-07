@@ -58,9 +58,7 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false } }),
-    new CompressionPlugin({
-      asset: "{file}" })],
+        warnings: false } })],
 
   module: {
     loaders: [
