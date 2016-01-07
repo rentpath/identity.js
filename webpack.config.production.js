@@ -59,7 +59,8 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false } }),
-    new CompressionPlugin()],
+    new CompressionPlugin({
+      asset: "{file}" })],
 
   module: {
     loaders: [
