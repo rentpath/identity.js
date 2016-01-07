@@ -44,6 +44,7 @@ var name    = json.name;
 var path    = require('path');
 var webpack = require('webpack');
 var version = json.version;
+var CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: './src/index',
@@ -57,7 +58,8 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false } })],
+        warnings: false } }),
+    new CompressionPlugin()],
 
   module: {
     loaders: [
