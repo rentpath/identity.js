@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rentpath/identity.js.svg?branch=dev)](https://travis-ci.org/rentpath/identity.js)
+[![Build Status](https://travis-ci.org/rentpath/identity.js.svg?branch=master)](https://travis-ci.org/rentpath/identity.js)
 
 
 # Track a Universal RentPath Identity
@@ -15,7 +15,7 @@ or other element that is rendered within all pages in the site.
 
 ```javascript
 <script async type="text/javascript"
-  src="http://www.rentpathcode.com/identity/1.2.0/identity-1.2.0.min.js">
+  src="http://www.rentpathcode.com/identity/1.2.1/identity-1.2.1.min.js">
 </script>
 
 <script>
@@ -50,7 +50,7 @@ Open your GTM console and create the tag to load the library.
 
   ```javascript
   <script async type="text/javascript"
-    src="http://www.rentpathcode.com/identity/1.2.0/identity.min.js">
+    src="http://www.rentpathcode.com/identity/1.2.1/identity.min.js">
   </script>
   ```
 

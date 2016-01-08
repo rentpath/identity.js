@@ -1,6 +1,7 @@
 **/node_modules/*
 *.config.js
 *.config.production.js
+./deploy.js
 build/*
 dist/*
 node_modules/*
