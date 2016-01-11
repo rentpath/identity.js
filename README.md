@@ -15,7 +15,7 @@ or other element that is rendered within all pages in the site.
 
 ```javascript
 <script async type="text/javascript"
-  src="http://www.rentpathcode.com/identity/1.2.1/identity-1.2.1.min.js">
+  src="http://www.rentpathcode.com/identity/1.2.1/identity.min.js">
 </script>
 
 <script>
