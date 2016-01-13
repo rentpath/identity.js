@@ -20,7 +20,13 @@ or other element that is rendered within all pages in the site.
 
 <script>
   window.Identity = window.Identity || [];
-  window.Identity.push(['track', function (){}, function (){}, 'http://identity.rentpathservices.com']);
+  function report() {
+    var id = this.universal_zid.uuid;
+    window.Identity.push(['cookify', id]);
+    window.Identity.push(['track', function(){}, function(){}, 'http://identity.rentpathservices.com']);
+  }
+
+  window.Identity.push(['fetch', report, function (){}]);
 </script>
 
 ```
@@ -70,10 +76,16 @@ Next, create the tag to create and track the RUID.
 4. Copy and paste this piece of code:
 
   ```javascript
-  <script>
-    window.Identity = window.Identity || [];
-    window.Identity.push(['track', function (){}, function (){}, 'http://identity.rentpathservices.com']);
-  </script>
+    <script>
+      window.Identity = window.Identity || [];
+      function report() {
+        var id = this.universal_zid.uuid;
+        window.Identity.push(['cookify', id]);
+        window.Identity.push(['track', function(){}, function(){}, 'http://identity.rentpathservices.com']);
+      }
+
+      window.Identity.push(['fetch', report, function (){}]);
+    </script>
   ```
 
 5. Again, choose a trigger to **Fire on All Pages**.
