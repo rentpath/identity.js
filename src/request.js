@@ -67,9 +67,9 @@ class Request {
       this.successFn,
       this.failureFn,
       this.host,
+      this.port,
       this.target,
       this.method,
-      this.port,
       this.retries - 1,
       this.timeout,
       this.timeoutFn);
