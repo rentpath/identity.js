@@ -1,76 +1,98 @@
-import Request from './request';
+import Request from './request'
 
-const Cookies = require('js-cookie');
+const Cookies = require('js-cookie')
 
 const Identity = {
-  _request:
-    function (successFn, failureFn, zidUuid, host, port, action, data) {
-      const callback = function () {
-        const params = Identity._serialize(data);
-        const uzid   = this.universal_zid.uuid;
-        const url    = `/universal_zids/${uzid}/${action}/${zidUuid}`;
-        const target = params ? `${url}?${params}` : url;
-        const xhr    = new Request(successFn, failureFn, host, port, target, 'POST');
-        xhr.send(); };
-      Identity.fetch(callback, failureFn, host, port ); },
+  _request(successFn, failureFn, zidUuid, host, port, action, data) {
+    const callback = function() {
+      const params = Identity._serialize(data)
+      const uzid = this.universal_zid.uuid
+      const url = `/universal_zids/${uzid}/${action}/${zidUuid}`
+      const target = params ? `${url}?${params}` : url
+      const xhr = new Request(successFn, failureFn, host, port, target, 'POST')
+      xhr.send()
+    }
 
-  _serialize:
-    function (object) {
-      const str = [];
+    Identity.fetch(callback, failureFn, host, port)
+  },
 
-      if (object === undefined) {
-        return undefined; }
+  _serialize(object) {
+    const str = []
 
-      for (let p in object) {
-        if (object.hasOwnProperty(p)) {
-          str.push(encodeURIComponent(p) + '=' + encodeURIComponent(object[p])); } }
+    if (object === undefined) {
+      return undefined
+    }
 
-      return str.join('&'); },
-
-  cookify:
-    function (value, cookieName = 'uzid', expiry = 365) {
-      Cookies.set(cookieName, value, { expires: expiry }); },
-
-  fetch:
-    function (successFn, errorFn, host, port, retries, timeout) {
-      const uzidUuid = Identity.uzid();
-
-      if (uzidUuid && successFn) {
-        successFn.call({ 'universal_zid': { 'uuid': uzidUuid } });
-        return;
+    for (const p in object) {
+      if (object.hasOwnProperty(p)) {
+        str.push(`${encodeURIComponent(p)}=${encodeURIComponent(object[p])}`)
       }
+    }
 
-      const target = '/universal_zids/new';
-      const xhr    = new Request(successFn, errorFn, host, port, target, 'GET', retries, timeout);
-      xhr.send(); },
+    return str.join('&')
+  },
 
-  link:
-    function (successFn, failureFn, zidUuid, host, port) {
-      Identity._request(successFn, failureFn, zidUuid, host, port, 'zid_link'); },
+  cookify(value, cookieName = 'uzid', expiry = 365) {
+    Cookies.set(cookieName, value, { expires: expiry })
+  },
 
-  track:
-    function (successFn, failureFn, host, port) {
-      const data = { 'address': window.location.href };
-      Identity._request(successFn, failureFn, '', host, port, 'access_log', data); },
+  fetch(successFn, errorFn, host, port, retries, timeout) {
+    const uzidUuid = Identity.uzid()
 
-  push:
-    function (params) {
-      const methodName = params.shift();
-      this[methodName].apply(this, params); },
+    if (uzidUuid && successFn) {
+      successFn.call({ universal_zid: { uuid: uzidUuid } })
+      return
+    }
 
-  unlink:
-    function (successFn, failureFn, zidUuid, host, port) {
-      Identity._request(successFn, failureFn, zidUuid, host, port, 'zid_decouple'); },
+    const target = '/universal_zids/new'
+    const xhr = new Request(successFn, errorFn, host, port, target, 'GET', retries, timeout)
+    xhr.send()
+  },
 
-  uzid:
-    function (cookieName = 'uzid') {
-      return Cookies.getJSON(cookieName); }
-};
+  link(successFn, failureFn, zidUuid, host, port) {
+    Identity._request(successFn, failureFn, zidUuid, host, port, 'zid_link')
+  },
 
-export default Identity;
+  pixel(
+    uri = window.location.href,
+    successFn = () => {},
+    failureFn = () => {},
+  ) {
+    const host = 'http://wh.consumersource.com'
+    const id = Identity.uzid()
+    const port = 80
+    const uuUri = encodeURI(uri)
+    const target = `wtd.gif?profile=zutron&subprofile=zutron&uzid=${id}&path=${uuUri}`
+    const xhr = new Request(successFn, failureFn, host, port, target, 'GET')
+
+    xhr.send()
+  },
+
+  push(params) {
+    const methodName = params.shift()
+    this[methodName].apply(this, params)
+  },
+
+  track(successFn, failureFn, host, port) {
+    const data = { address: window.location.href }
+    Identity._request(successFn, failureFn, '', host, port, 'access_log', data)
+  },
+
+  unlink(successFn, failureFn, zidUuid, host, port) {
+    Identity._request(successFn, failureFn, zidUuid, host, port, 'zid_decouple')
+  },
+
+  uzid(cookieName = 'uzid') {
+    return Cookies.getJSON(cookieName)
+  }
+}
+
+export default Identity
 
 if (window && window.Identity) {
   while (window.Identity.length) {
-    Identity.push(window.Identity.shift()); } }
+    Identity.push(window.Identity.shift())
+  }
+}
 
-window.Identity = Identity;
+window.Identity = Identity

@@ -1,68 +1,67 @@
 class Request {
   constructor(
     successFn,
-    failureFn = () => {},
-    host      = 'http://identity.rentpathservices.com',
-    port      = 80,
-    target    = '/universal_zids/new',
-    method    = 'GET',
-    retries   = 3,
-    timeout   = 500,
-    timeoutFn)
-  {
-    this.failureFn  = failureFn;
-    this.host       = host;
-    this.method     = method;
-    this.port       = port;
-    this.request    = new XMLHttpRequest();
-    this.retries    = retries;
-    this.successFn  = successFn;
-    this.target     = target;
-    this.timeout    = timeout;
-    this.timeoutFn  = timeoutFn;
+    failureFn = () => { /* nop */ },
+    host = 'http://identity.rentpathservices.com',
+    port = 80,
+    target = '/universal_zids/new',
+    method = 'GET',
+    retries = 3,
+    timeout = 500,
+    timeoutFn
+  ) {
+    this.failureFn = failureFn
+    this.host = host
+    this.method = method
+    this.port = port
+    this.request = new XMLHttpRequest()
+    this.retries = retries
+    this.successFn = successFn
+    this.target = target
+    this.timeout = timeout
+    this.timeoutFn = timeoutFn
 
-    const hostname  = this.host.replace(/\/$/, '');
-    const path      = this.target.replace(/^\//, '');
-    const repeat    = this.retry;
-    const url       = `${hostname}:${port}/${path}`;
+    const hostname = this.host.replace(/\/$/, '')
+    const path = this.target.replace(/^\//, '')
+    const repeat = this.retry.bind(this)
+    const url = `${hostname}:${port}/${path}`
 
-    this.request.open(method, url, true);
-    this.request.setRequestHeader('Accept', 'application/json');
-    this.request.setRequestHeader('Content-Type', 'application/json');
+    this.request.open(method, url, true)
+    this.request.setRequestHeader('Accept', 'application/json')
+    this.request.setRequestHeader('Content-Type', 'application/json')
 
-    this.request.onload = function () {
+    this.request.onload = function() {
       if (this.status >= 200 && this.status < 400) {
-        const data = JSON.parse(this.responseText);
-        successFn.call(data);
+        const data = JSON.parse(this.responseText)
+        successFn.call(data)
       } else {
-        failureFn(this.status, this.responseText);
+        failureFn(this.status, this.responseText)
       }
-    };
+    }
 
-    this.request.onerror = function () {
+    this.request.onerror = function() {
       if (this.readyState === 4 && this.status === 0) {
-        failureFn('NO_NETWORK');
+        failureFn('NO_NETWORK')
       } else {
-        failureFn(this.status, this.responseText);
+        failureFn(this.status, this.responseText)
       }
-    };
+    }
 
-    this.request.ontimeout = function () {
+    this.request.ontimeout = function() {
       if (timeoutFn) {
-        timeoutFn();
-        return;
+        timeoutFn()
+        return
       }
 
       if (retries > 0) {
-        repeat().send();
+        repeat().send()
       } else {
-        this.onerror('timeout');
+        this.onerror('timeout')
       }
-    };
+    }
   }
 
-  retry = () =>
-  {
+  retry() {
     return new Request(
       this.successFn,
       this.failureFn,
@@ -72,15 +71,14 @@ class Request {
       this.method,
       this.retries - 1,
       this.timeout,
-      this.timeoutFn);
+      this.timeoutFn)
   }
 
-  send = () =>
-  {
-    this.request.withCredentials = true;
-    this.request.timeout         = this.timeout;
-    this.request.send();
+  send() {
+    this.request.withCredentials = true
+    this.request.timeout = this.timeout
+    this.request.send()
   }
 }
 
-export default Request;
+export default Request
