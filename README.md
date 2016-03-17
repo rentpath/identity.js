@@ -135,7 +135,7 @@ Automated tests poke and prod the entry points to the library. _Karma_ is the te
 The default test runner executes the tests only once, which is ideal for CI (_Travis_ and such).
 
 ```
-$ npm test
+$ npm run test
 ```
 
 This will auto watch all files for changes and rerun the tests. Ideal for development.
