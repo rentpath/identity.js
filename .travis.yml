@@ -23,12 +23,9 @@ notifications:
 
 sudo: false
 
-
-#
 # the process
 
 before_install:
-  - npm i -g npm@^2.0.0
   - npm prune
 
 script: npm run test
