@@ -1,6 +1,6 @@
 {
   "name": "identity-rentpath",
-  "version": "1.3.0",
+  "version": "0.0.0-semantically-released",
   "description": "Allocate and track a universal Rentpath ID using the Personalization service as a backend.",
   "main": "identity.js",
   "scripts": {
