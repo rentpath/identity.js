@@ -2,6 +2,7 @@
 /.aws.martin
 /.aws.rentpathcode
 /.idea
+/.env
 bower_components
 build
 node_modules
