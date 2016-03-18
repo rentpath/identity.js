@@ -1,7 +1,34 @@
+branches:
+  except:
+    - "/^v\\d+\\.\\d+\\.\\d+$/"
+
+cache:
+  directories:
+    - node_modules
+
+env:
+  global:
+    - NPM_CONFIG_PROGRESS=false
+    - secure: vJdY0pz/iwQZyEEdAHGxrLtNPtnAgsJf2jIBTCQoSysN0h8TedD+tHlF3JTjnAXJKq9KilOHK7VQRBAKOmPdvWe1bZSRdV/6StR7W+InE7aeFwt3oWmqW5T47S4Irzy3we6r6o0zPd18Bo+ShW0RKBNRmeA4b3qU4tJaqQvljphbhpv7ECaHStgYQoETEVsjqhm/sy82zPOP0nLev0b6zMOVl/CAwQyUyVmCeEv+WKk9u5ZnWqdthb+10H1hwWyRyttSx8+EGEvyj6cZ7zi16IpUB7Mh9jyWw4ggPEKiX5A3qE6+ozbS6+Q9f4bFgux6ko4iTX3JlDmi+7yVWqHdf1HuvKDRux8Elaase9fQdHGVpztBHtSx2HiEXd+CzpkcI+fA3XrAtwbycI/1NXNv1wDwjg888KRCcAmx9RJL8iluemqbyBuodiwBBKmjvjCcPY8f7r8/clpkmOlfRVwb9D8WiYNLVvTCDOHJXdT5i2je7dq4pCVcbiw0Tp0muctbG+1DvnIQMfc+SvlEzM5f/9S+T29CW+Wy9TdWCqm9gkaSTBU9CPjs4YWh2dTLa5WIPNHwZ/9R16y/t5MTUxbDFfzGFZmnDb/swfciYc+hskskd6aoeKxQOsodm3FuyXbCFdgg3CVLcHQLxNqs1FwFZ1EvFZhc16iskXcTvmP/Md0=
+    - secure: XmgohrrmX1jWbGQj/Bs3Imdcj3Y78jBjJwc7eKF+/pLIlLMN+plM53AOmMtbdHzXKz3yoI3WA4bTodFn9jF+O+D5vq1DmAXepxMgbaSQq5w4lD0YvUWS/Tzi3nCIT5pZ+YuX+2KSPHr4YqcLO9sdNiV5IvxD0yyTrQLADcJHdFcrmH47JeHwiYqeJzfr5S0/S7+o8JXdPRjKEqMtbFrb3+PrEEKxmXmtdL2pZuEhZjM0yMyvfuVuj6/d5e+o+MI6fqOgRr+ighCJWGiCOtjpF6+q6IYYFo55//GhZXDCFt4FPMI7ouZWgkhYrqr15I4AAWD+q9X2QLl4Xye7TB5nq4FbAsC0nAuH2U8JMdu8qzfLdJhiWLq9UPniRlRB2YWnZUhvw8Q+8tSsZsC7n+rJu/TSuhl7WLCf1EnfvUltJ/09ftTkkIcKmeY76s7hssS+8H6RxGhv7Mv5f9H+rYfVJ77pf8ef4zl221GfCLMkfDAarvuvHw/nvvwEj0Y+VVoY5HVMStdmMyzHED0LXiSKYVDkn5CKpfx7uyghgTZcdsYJvZWyajJUnRAXllN9NlsO5wJbfrK80cfkee/68qzOSQQ2Tpuhv/WKdDt5lvkLtP88Av6XuKK/NQ9dOnqK09um5iNzNoay/YY4DCbTlQ0909UlzSYJDx6OPSuzTMC8gwg=
+    - secure: agHrVEXJtlE/3vsdo12x6URYQQj2xr9O111hj7PObmiLS4v+OblX9yupccahGidqTEKjifJb40pGxBJf9dIJf/eeTtUbEZvOnP36/WUTipPy8YGMF0VJSh4PtsfYWtQFRfzCeGQOu3yPcKA8KkHoW9hnc7Ta32SRjJsCMoq76Tp7SNvO+wCIhyi8g3ceBYTTB1O1kv5mbsCq3M0eVEqFFrA1ctXEzu71Dw6zL7UpAKOSMy5PpuqvYw61xbUxE+o3Vn+VNErSPAhQ0wo2bj+cMaMrCXs/HN9YcBOPDoNGOJR1JbwVcqiI2EepYvEzrv6MYAhzvXDzZc62S7YY+Pur2jIlKYgXq/PKG0RKT2iYgp3KyYUhyafG2GFR3LysmCJzFZDsquUXjsydRWr3huKYdAd4tJ9ehZNFAfLS8yUJG2MMvWtHfhtjyxiBYyvqgEKy5SCTynLSc2MYW1IpSzypNd+BLQtp0LUkMVcN7LYd39AHR1ekMhmnKuS9BUTMHxf8E4G+Th+tZqMD94WiuvvXyHd6UYfyrCEuynWF9iOJvtI1rCPgmQyy17KwJGXy8wDnICquteBV6iMM76tAOTsLVB3MF3mKw0JrTdK4T2bqPa7WMNp4pTs1cHLMJyDB/NTIyniLdufmzC3/wMmh1maFlLJp/6PFO8lgrBzoASRwkqI=
+
 language: node_js
 
 node_js:
-  - "4.1"
+  - '5.6'
 
-before_script:
-  - npm install
+notifications:
+  email: false
+
+sudo: false
+
+# the process
+
+before_install:
+  - npm prune
+
+script: npm run test
+
+after_success:
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && npm run release
