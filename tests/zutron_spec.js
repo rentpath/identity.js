@@ -101,35 +101,15 @@ describe('Identity', () => {
   });
 
   describe('#pixel', function () {
-    beforeEach(function () {
-      jasmine.Ajax.install();
-      jasmine.clock().install();
-    });
-
-    afterEach(function () {
-      jasmine.Ajax.uninstall();
-      jasmine.clock().uninstall();
-    });
-
     it('should call the warehouse with the proper params', function () {
       var cookieValue = 'something';
       Identity.cookify(cookieValue);
 
-      jasmine.Ajax.stubRequest(
-        /.*\/wtd.gif/
-      ).andReturn({
-        status: 200,
-        statusText: 'OK',
-        contentType: 'application/json',
-        responseText: '{}'
-      });
-
-      testIdentity.pixel('http://example.com/my page.php', () => {}, () => {});
-      var request = jasmine.Ajax.requests.mostRecent();
-      expect(request.method).toBe('GET');
-      expect(request.url).toContain('http://wh.consumersource.com:80/wtd.gif');
-      expect(request.url).toContain('?profile=zutron&subprofile=zutron&uzid=something');
-      expect(request.url).toContain('path=http://example.com/my%20page.php');
+      var element = testIdentity.pixel('http://example.com/my page.php', () => {}, () => {});
+      var url = element.src;
+      expect(url).toContain('http://wh.consumersource.com/wtd.gif');
+      expect(url).toContain('?profile=zutron&subprofile=localhost&uzid=something');
+      expect(url).toContain('path=http://example.com/my%20page.php');
     });
   });
 

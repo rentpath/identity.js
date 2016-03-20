@@ -53,19 +53,17 @@ const Identity = {
     Identity._request(successFn, failureFn, zidUuid, host, port, 'zid_link')
   },
 
-  pixel(
-    uri = window.location.href,
-    successFn = () => {},
-    failureFn = () => {},
-  ) {
+  pixel(uri = window.location.href) {
     const host = 'http://wh.consumersource.com'
     const id = Identity.uzid()
-    const port = 80
+    const hostname = window.location.hostname
     const uuUri = encodeURI(uri)
-    const target = `wtd.gif?profile=zutron&subprofile=zutron&uzid=${id}&path=${uuUri}`
-    const xhr = new Request(successFn, failureFn, host, port, target, 'GET')
+    const target = `wtd.gif?profile=zutron&subprofile=${hostname}&uzid=${id}&path=${uuUri}`
+    const warehouseTag = document.createElement('img')
 
-    xhr.send()
+    warehouseTag.setAttribute('src', `${host}/${target}`)
+    document.body.appendChild(warehouseTag)
+    return(warehouseTag)
   },
 
   push(params) {

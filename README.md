@@ -23,6 +23,7 @@ or other element that is rendered within all pages in the site.
   function report() {
     var id = this.universal_zid.uuid;
     window.Identity.push(['cookify', id]);
+    window.Identity.push(['pixel', window.location.href]);
     window.Identity.push(['track', function(){}, function(){}, 'http://identity.rentpathservices.com']);
   }
 
@@ -56,7 +57,7 @@ Open your GTM console and create the tag to load the library.
 
   ```javascript
   <script async type="text/javascript"
-    src="http://www.rentpathcode.com/identity/1.2.1/identity.min.js">
+    src="http://www.rentpathcode.com/identity/1.3.1/identity.min.js">
   </script>
   ```
 

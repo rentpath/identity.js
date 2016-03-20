@@ -1,11 +1,25 @@
 <html>
   <head>
-    <title>Sample App</title>
+    <title>Sample RUID Application</title>
+    <script src="dist/identity-rentpath-1.3.1.js"></script>
   </head>
 
   <body>
-    <div id='name'>Rentpath Universal Identity Test Jig</div>
-    <div id='root'></div>
-    <script src="dist/identity-1.2.0.min.js"></script>
+    <div>
+      Rentpath Universal Identity Test Jig
+    </div>
+
+    <script type="text/javascript">
+      window.Identity = window.Identity || [];
+
+      function report() {
+        var id = this.universal_zid.uuid;
+        window.Identity.push(['cookify', id]);
+        window.Identity.push(['pixel', window.location.href]);
+        window.Identity.push(['track', function(){}, function(){}, 'http://identity.rentpathservices.com']);
+      }
+
+      window.Identity.push(['fetch', report, function (){}]);
+    </script>
   </body>
 </html>
