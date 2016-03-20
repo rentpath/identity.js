@@ -15,7 +15,7 @@ or other element that is rendered within all pages in the site.
 
 ```javascript
 <script async type="text/javascript"
-  src="http://www.rentpathcode.com/identity/1.3.2/identity.min.js">
+  src="http://www.rentpathcode.com/identity/1.3.3/identity-rentpath.min.js">
 </script>
 
 <script>
@@ -57,7 +57,7 @@ Open your GTM console and create the tag to load the library.
 
   ```javascript
   <script async type="text/javascript"
-    src="http://www.rentpathcode.com/identity/1.3.1/identity.min.js">
+    src="http://www.rentpathcode.com/identity/1.3.3/identity-rentpath.min.js">
   </script>
   ```
 
@@ -155,12 +155,15 @@ $ webpack --debug --devtool sourcemap --output-pathinfo --config webpack.config.
 $ webpack --config webpack.config.production.js
 ```
 
-The output of the first command is *./dist/identity-*version*.js* and
-*./dist/identity-*version*.js.map*. The second command produces
-*./dist/identity-*version*.min.js* and
-*./dist/identity-*version*.min.js.map*. *version* is a string like `1.1.0`
-defined by semantic versioning. The version number can be modified in the
-*package.json*.
+The output of the first command is *./dist/identity-rentpath*version*.js* and
+*./dist/identity-rentpath*version*.js.map*.
+
+The second command produces
+*./dist/identity-rentpath*version*.min.js* and
+*./dist/identity-rentpath*version*.min.js.map*.
+
+*version* is a string like `1.1.0`
+defined by semantic versioning.
 
 Commit these new files to the repo and use Github to construct a new release.
 
