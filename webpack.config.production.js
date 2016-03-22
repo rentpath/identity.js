@@ -40,11 +40,18 @@
 
 /* eslint-disable no-var */
 var json    = require('./package.json');
-var name    = json.name;
+var name    = json.internal_name;
 var path    = require('path');
 var webpack = require('webpack');
-var version = json.version;
+var yargs   = require('yargs');
 var CompressionPlugin = require('compression-webpack-plugin');
+
+var argv =
+  yargs
+    .demand('i')
+    .describe('i', 'version number to assign to packaged file(s)')
+    .alias('i', 'id')
+    .argv;
 
 module.exports = {
   entry: './src/index',
@@ -68,7 +75,7 @@ module.exports = {
         include: path.join(__dirname, 'src') } ] },
 
   output: {
-    filename:   name + '-' + version + '.min.js',
+    filename:   name + '-' + argv.i + '.min.js',
     path:       path.join(__dirname, 'dist'),
     publicPath: '/' }
 };

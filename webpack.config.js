@@ -42,10 +42,17 @@
 
 /* eslint-disable no-var */
 var json    = require('./package.json');
-var name    = json.name;
+var name    = json.internal_name;
 var path    = require('path');
 var webpack = require('webpack');
-var version = json.version;
+var yargs   = require('yargs');
+
+var argv =
+  yargs
+    .demand('i')
+    .describe('i', 'version number to assign to packaged file(s)')
+    .alias('i', 'id')
+    .argv;
 
 module.exports = {
   entry: [
@@ -70,7 +77,7 @@ module.exports = {
         include: path.join(__dirname, 'src') } ] },
 
   output: {
-    filename:   name + '-' + version + '.js',
+    filename:   name + '-' + argv.i + '.js',
     path:       path.join(__dirname, 'dist'),
     publicPath: '/' }
 };

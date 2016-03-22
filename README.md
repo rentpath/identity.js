@@ -18,11 +18,12 @@ or other element that is rendered within all pages in your site.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ javascript
 <script async type="text/javascript"
-  src="http://www.rentpathcode.com/identity/1.3.3/identity-rentpath.min.js">
+  src="http://www.rentpathcode.com/identity/x.y.z/identity.min.js">
 </script>
 
 <script>
   window.Identity = window.Identity || [];
+
   function report() {
     var id = this.universal_zid.uuid;
     window.Identity.push(['cookify', id]);
@@ -34,10 +35,18 @@ or other element that is rendered within all pages in your site.
 </script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The first snippet loads the RentPath Identity library code from a CDN. The
-second snippet runs code to create an RUID (if one has not already been saved as
+The first `script` tag above loads the RentPath Identity library code from a CDN.
+Please replace the _x.y.z_ in the `src` with the version number of the
+latest release of the library. To find the latest release, run the command...
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$ npm view identity-rentpath versions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+The second `script` tag above creates an RUID (if one has not already been saved as
 a cookie) and sends tracking information, including the RUID, your hostname, and
-the URL of the current page, to our servers.
+the complete URL of the current page, to our servers.
 
 To test operation, open your application (perhaps after a server restart or
 cache purge to pick up the new JavaScript code) and look in the *Cookies*
@@ -77,13 +86,22 @@ Open your GTM console and create the tag to load the library.
 
 4.  Copy and paste the following code into the configuration text box:
 
-`javascript   <script async type="text/javascript"
-src="http://www.rentpathcode.com/identity/1.3.3/identity-rentpath.min.js">
-</script>`
+  ``` javascript
+  <script async
+    type="text/javascript"
+    src="http://www.rentpathcode.com/identity/x.y.z/identity.min.js">
+  </script>
+  ```
 
-1.  Choose the trigger to **Fire on All Pages**.
+5.  Replace the _x.y.z_ with the version number of the latest release of the library. You
+    can use _npm view_ to list all available versions (see the command to use
+    in the first section) or browse the releases on this
+    repository's [Github releases page](https://github.com/rentpath/identity.js/releases).
 
-2.  Save the tag.
+6.  Choose the trigger to **Fire on All Pages**.
+
+7.  Save the tag.
+
 
 Next, create the tag to create and track the RUID.
 
@@ -95,9 +113,20 @@ Next, create the tag to create and track the RUID.
 
 4.  Copy and paste this piece of code:
 
-\`\`\`javascript
+  ``` javascript
+  <script type="text/javascript">
+    window.Identity = window.Identity || [];
 
-\`\`\`
+    function report() {
+      var id = this.universal_zid.uuid;
+      window.Identity.push(['cookify', id]);
+      window.Identity.push(['pixel', window.location.href]);
+      window.Identity.push(['track', function(){}, function(){}, 'http://identity.rentpathservices.com']);
+    }
+
+    window.Identity.push(['fetch', report, function (){}]);
+  </script>
+  ```
 
 1.  Again, choose a trigger to **Fire on All Pages**.
 
@@ -163,15 +192,23 @@ $ webpack --debug --devtool sourcemap --output-pathinfo --config webpack.config.
 $ webpack --config webpack.config.production.js
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The output of the first command is *./dist/identity-rentpath*version*.js* and
-*./dist/identity-rentpath*version*.js.map*.
+The first use of _webpack_ generates files ./dist/identity-_version_.js and
+./dist/identity-_version_.js.map, where *version* is a
+string like `1.1.0` defined by semantic versioning. The second command
+produces ./dist/identity-_version_.min.js and ./dist/identity-_version_.min.js.map.
 
-The second command produces *./dist/identity-rentpath*version*.min.js* and
-*./dist/identity-rentpath*version*.min.js.map*.
 
-*version* is a string like `1.1.0` defined by semantic versioning.
 
-Commit these new files to the repo and use Github to construct a new release.
+### Releasing New Code
+
+Code changes are automatically versioned and released to npm and Github using a
+combination of [semantic-release](https://github.com/semantic-release/semantic-release),
+[commitizen](https://www.npmjs.com/package/commitizen), and
+[Travis](https://travis-ci.org/rentpath/identity.js).
+
+If the master branch passes all tests, it is packaged in three forms and sent to
+npm, Github, and S3, respectively.
+
 
 References
 ----------
