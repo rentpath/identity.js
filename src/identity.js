@@ -59,11 +59,10 @@ const Identity = {
     const hostname = window.location.hostname
     const uuUri = encodeURI(uri)
     const target = `wtd.gif?profile=zutron&subprofile=${hostname}&uzid=${id}&path=${uuUri}`
-    const warehouseTag = document.createElement('img')
+    const imagePixel = new Image()
+    imagePixel.src = `${host}/${target}`
 
-    warehouseTag.setAttribute('src', `${host}/${target}`)
-    document.body.appendChild(warehouseTag)
-    return(warehouseTag)
+    return imagePixel
   },
 
   push(params) {
