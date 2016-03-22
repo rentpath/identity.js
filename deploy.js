@@ -12,6 +12,7 @@ var s3_folder = pack.internal_name;
 var target    = pack.name;
 var versions  = sync(`npm view ${target} versions`).toString();
 
+
 /*
  * Find AWS variables. Die if any are undefined.
  */
