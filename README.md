@@ -28,7 +28,6 @@ or other element that is rendered within all pages in your site.
     var id = this.universal_zid.uuid;
     window.Identity.push(['cookify', id]);
     window.Identity.push(['pixel', window.location.href]);
-    window.Identity.push(['track', function(){}, function(){}, 'http://identity.rentpathservices.com']);
   }
 
   window.Identity.push(['fetch', report, function (){}]);
@@ -121,7 +120,6 @@ Next, create the tag to create and track the RUID.
       var id = this.universal_zid.uuid;
       window.Identity.push(['cookify', id]);
       window.Identity.push(['pixel', window.location.href]);
-      window.Identity.push(['track', function(){}, function(){}, 'http://identity.rentpathservices.com']);
     }
 
     window.Identity.push(['fetch', report, function (){}]);
