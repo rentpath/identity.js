@@ -29,8 +29,8 @@ describe('Request', () => {
   });
 
   it('assembles a default URL', function () {
-    let defaultHost   = 'http://identity.rentpathservices.com';
-    let defaultPort   = 80;
+    let defaultHost   = 'https://identity.rentpathservices.com';
+    let defaultPort   = 443;
     let defaultTarget = '/universal_zids/new';
     let r = new Request(() => {});
 
