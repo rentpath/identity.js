@@ -107,7 +107,7 @@ describe('Identity', () => {
 
       var element = testIdentity.pixel('http://example.com/my page.php', () => {}, () => {});
       var url = element.src;
-      expect(url).toContain('http://wh.consumersource.com/wtd.gif');
+      expect(url).toContain('https://wh.consumersource.com/wtd.gif');
       expect(url).toContain('?profile=zutron&subprofile=localhost&uzid=something');
       expect(url).toContain('path=http://example.com/my%20page.php');
     });
