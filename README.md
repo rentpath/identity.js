@@ -10,11 +10,11 @@ For Javascript Developers
 If you are a JavaScript developer and regularly use open source libraries,
 adding a RentPath Universal Identity (RUID) to your site requires little effort.
 The bulk of work is already captured in this library. In most cases, integration
-requires just two snippets of code.
+requires just two small snippets of code.
 
 Copy and paste the following snippets into your Web site so that each page view
-executes the code. For example, you might embed the code into a header or footer
-or other element that is rendered within all pages in your site.
+executes the code. For example, you might embed the code in a header, footer,
+or some other element that is rendered within every page of your site.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ javascript
 <script async type="text/javascript"
