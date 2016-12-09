@@ -18,7 +18,7 @@ or other element that is rendered within all pages in your site.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ javascript
 <script async type="text/javascript"
-  src="http://www.rentpathcode.com/identity/x.y.z/identity.min.js">
+  src="https://www.rentpathcode.com/identity/x.y.z/identity.min.js">
 </script>
 
 <script>
@@ -34,7 +34,7 @@ or other element that is rendered within all pages in your site.
 </script>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The first `script` tag above loads the RentPath Identity library code from a CDN.
+The first `script` tag above loads the RentPath Identity library from a CDN.
 Please replace the _x.y.z_ in the `src` with the version number of the
 latest release of the library. To find the latest release, run the command...
 
@@ -49,7 +49,7 @@ the complete URL of the current page, to our servers.
 
 To test operation, open your application (perhaps after a server restart or
 cache purge to pick up the new JavaScript code) and look in the *Cookies*
-section of your browser's development tools. If you see a new cookie named
+section of your browser&rsquo;s development tools. If you see a new cookie named
 `uzid`, tracking is operational.
 
 Packaging via npm
@@ -75,7 +75,7 @@ are needed: one tag to load the RUID JavaScript library, and a second to create
 the RUID (if necessary) and track its use. Both tags must appear and fire on all
 pages on your site.
 
-Open your GTM console and create the tag to load the library.
+To begin, open your GTM console and create the tag to load the library.
 
 1.  Click **New Tag**.
 
@@ -88,14 +88,14 @@ Open your GTM console and create the tag to load the library.
   ``` javascript
   <script async
     type="text/javascript"
-    src="http://www.rentpathcode.com/identity/x.y.z/identity.min.js">
+    src="https://www.rentpathcode.com/identity/x.y.z/identity.min.js">
   </script>
   ```
 
 5.  Replace the _x.y.z_ with the version number of the latest release of the library. You
     can use _npm view_ to list all available versions (see the command to use
     in the first section) or browse the releases on this
-    repository's [Github releases page](https://github.com/rentpath/identity.js/releases).
+    repository&rsquo;s [Github releases page](https://github.com/rentpath/identity.js/releases).
 
 6.  Choose the trigger to **Fire on All Pages**.
 
@@ -173,8 +173,8 @@ ideal for CI (*Travis* and such).
 $ npm run test
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This will auto watch all files for changes and rerun the tests. Ideal for
-development.
+The next command automatically monitors all files for changes and reruns the tests.
+This command is ideal for active development.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 $ npm run test_watch

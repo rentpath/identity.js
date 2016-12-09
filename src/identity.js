@@ -54,7 +54,7 @@ const Identity = {
   },
 
   pixel(uri = window.location.href) {
-    const host = 'http://wh.consumersource.com'
+    const host = 'https://wh.consumersource.com'
     const id = Identity.uzid()
     const hostname = window.location.hostname
     const uuUri = encodeURI(uri)

@@ -2,8 +2,8 @@ class Request {
   constructor(
     successFn,
     failureFn = () => { /* nop */ },
-    host = 'http://identity.rentpathservices.com',
-    port = 80,
+    host = 'https://identity.rentpathservices.com',
+    port = 443,
     target = '/universal_zids/new',
     method = 'GET',
     retries = 3,
