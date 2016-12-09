@@ -16,7 +16,7 @@ env:
 language: node_js
 
 node_js:
-  - '5.6'
+  - '5.8'
 
 notifications:
   email: false
@@ -28,7 +28,9 @@ sudo: false
 before_install:
   - npm prune
 
-script: npm run test
+script:
+  - npm run test
+  - npm run deploy
 
 after_success:
-  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && npm run release && npm run deploy
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && npm run release
