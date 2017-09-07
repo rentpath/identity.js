@@ -7,7 +7,7 @@ class Request {
     target = '/universal_zids/new',
     method = 'GET',
     retries = 3,
-    timeout = 500,
+    timeout = 1200,
     timeoutFn
   ) {
     this.failureFn = failureFn
